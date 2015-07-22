@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  - if(!user){
+    div(id='loginbox', class='container')
+      form(action=prefix+'/login', method='post')
+        div
+          label Username:
+          input(type='text', name='username')
+        div
+          label Password:
+          input(type='password', name='password')
+        div
+          button(type='submit', class='btn btn-primary') Log in
+  - }
+  - else{
+    div(id='confirmbox', class='container')
+      div #{user}, Do you want to log out first ?
+      a(href=prefix+'/logout')
+      button(class='btn btn-warning', type='button') Log out
+  - }

@@ -5,9 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 var socket = require('socket.io');
 var app = require('express')();
 var server = require('http').Server(app);
@@ -17,10 +14,17 @@ var io = socket.listen(server);
 
 //var	io = require('socket.io')(8080);
 var	stat = require('node-static'); // for serving files
+var session = require('express-session');
+//var passport = require('passport');
+var flash = require('connect-flash');
 
 // This will make all the files in the current folder
 // accessible from the web
 var fileServer = new stat.Server('./');
+
+var routes = require('./routes/index');
+var users = require('./routes/users');
+//var login = require('./routes/login');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,9 +35,22 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("draw and guess"));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
+
+
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+app.use(session({
+  secret: 'draw and guess',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {secure: true}
+}))
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/final');
 
 app.use('/', routes);
 app.use('/users', users);
