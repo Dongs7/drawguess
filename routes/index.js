@@ -13,7 +13,9 @@ router.use(function(req, res, next){
   var cookie = req.cookies.name;
   //var login = req.session.login;
   if(!cookie){
-    res.cookie('guest', '333', { signed: true });
+    res.cookie('name', '333', { maxAge: 900000, httpOnly: true });
+    //res.cookie('cokkieName',randomNumber, { maxAge: 900000, httpOnly: true });
+    //cookieParser.signedCookies('blablabla', 'draw and guess');
   }
   next();
 });
