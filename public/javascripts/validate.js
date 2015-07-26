@@ -13,7 +13,7 @@ $(function () {
         }
     });
 
-    $("form#sign_form").on("submit", function (event) {
+    $("form#signup_form").on("submit", function (event) {
         $("div.valimsg").text("");
         if ($("input#username").val() == "") {
             $("div#namemsg").text("username cannot be empty");

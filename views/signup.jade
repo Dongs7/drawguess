@@ -8,15 +8,15 @@ block content
         form(action=prefix + '/signup/submit', method='post', id='signup_form')
             div
                 label Username:
-                input(type='text', name='username')
+                input(type='text', name='username', id='username')
                 div(class='valimsg', id='namemsg')
             div
                 label Password:
-                input(type='password', name='password')
+                input(type='password', name='password', id='password')
                 div(class='valimsg', id='pwdmsg')
             div
                 label Re-Password:
-                input(type='password', name='re_password')
+                input(type='password', name='re_password', id='re_password')
             div
                 button(type='submit').
                     Submit

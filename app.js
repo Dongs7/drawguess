@@ -26,6 +26,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
+var signup = require('./routes/signup');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,6 +58,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/signup', signup);
 
 app.get(function(req, res, next) {
 	req.addListener('end', function () {

@@ -6,10 +6,7 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
 var Account = require('../models/accounts.js');
-var signup = require('../routes/signup.js');
 //var c = require('./cookie.js')
-
-router.use('/signup', signup);
 
 router.use(function(req, res, next){
   var cookie = req.cookies.login;

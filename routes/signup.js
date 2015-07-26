@@ -32,7 +32,7 @@ router.post('/submit', function (req, res) {
             account.save(function(err,res){
                 if (err) throw  err;
             });
-            res.redirect('/login');
+            res.redirect('/');
         }
     });
 });
