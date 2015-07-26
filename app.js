@@ -24,7 +24,8 @@ var fileServer = new stat.Server('./');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-//var login = require('./routes/login');
+var login = require('./routes/login');
+var logout = require('./routes/logout');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +55,8 @@ mongoose.connect('mongodb://localhost/final');
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/login', login);
+app.use('/logout', logout);
 
 app.get(function(req, res, next) {
 	req.addListener('end', function () {

@@ -11,7 +11,6 @@ var signup = require('../routes/signup.js');
 
 router.use('/signup', signup);
 
-
 router.use(function(req, res, next){
   var cookie = req.cookies.login;
   //var login = req.session.login;
@@ -33,8 +32,7 @@ router.get('/cookie', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  
-  res.render('index');
+  res.render('index', {user: req.cookies.login.guest ? 'guest' : req.cookies.login.username });
 });
 
 
@@ -47,37 +45,13 @@ router.get('/login', function(req, res, next) {
 });
 
 
-// process the login form
-router.post('/login', function(req, res, next){
-  Account.findOne( {username: req.body.username, password: req.body.password},
-    //{_id: 1, firstname: 1, lastname: 1},
-    function(err, doc){
-      if(err){
-        throw err;
-      }else{
-        req.session.name = doc.username;
-        req.session.level = doc.level;
-        req.session.point = doc.point;
-        
-        var hour = 900000;
-        req.session.cookie.expires = new Date(Date.now() + hour);
-        req.session.cookie.maxAge = hour;
-        
-        req.session.save(function(e) {
-          // session saved
-          if(e) throw e;
-          res.redirect('/cookie');
-        });
-      }
-  });
-});
 
 // =====================================
 // PROFILE SECTION =====================
 // =====================================
 // we will want this protected so you have to be logged in to visit
 // we will use route middleware to verify this (the isLoggedIn function)
-router.get('/profile/:id', isLoggedIn, function(req, res) {
+router.get('/profile/:id', function(req, res) {
   res.render('profile.ejs', {
     user : req.user // get the user out of session and pass to template
   });

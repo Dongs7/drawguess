@@ -1,23 +1,25 @@
 extends layout
 
 block append link
-    script(src=prefix+'/javascripts/signup.js')
+    script(src=prefix + '/javascripts/validate.js')
 
 block content
-  div(id='signupbox', class='container')
-    form(action=prefix+'/signup/submit', method='post', id='signup_form')
-      div
-        label Username:
-        input(type='text', name='username')
-      div
-        label Password:
-        input(type='password', name='password')
-      div
-        label Re-Password:
-        input(type='password', name='re_password')
-      div
-        button(type='submit').
-            Submit
+    div(id='signupbox', class='container')
+        form(action=prefix + '/signup/submit', method='post', id='signup_form')
+            div
+                label Username:
+                input(type='text', name='username')
+                div(class='valimsg', id='namemsg')
+            div
+                label Password:
+                input(type='password', name='password')
+                div(class='valimsg', id='pwdmsg')
+            div
+                label Re-Password:
+                input(type='password', name='re_password')
+            div
+                button(type='submit').
+                    Submit
 script.
     if (message)
         alert(message)
