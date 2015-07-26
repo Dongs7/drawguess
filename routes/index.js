@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
 var Account = require('../models/accounts.js');
+var signup = require('../routes/signup.js');
 //var c = require('./cookie.js')
+
+router.use('/signup', signup);
 
 
 router.use(function(req, res, next){
@@ -67,19 +70,6 @@ router.post('/login', function(req, res, next){
         });
       }
   });
-});
-
-// =====================================
-// SIGNUP ==============================
-// =====================================
-// show the signup form
-router.get('/signup', function(req, res) {
-  res.render('signup');
-});
-
-// process the signup form
-router.post('/signup', function(req, res, next){
-  
 });
 
 // =====================================
