@@ -33,48 +33,8 @@ router.get('/', function(req, res, next) {
 });
 
 
-// =====================================
-// LOGIN ===============================
-// =====================================
-// show the login form
-router.get('/login', function(req, res, next) {
-  res.render('login', { user: req.cookies.login });
-});
 
 
-// process the login form
-router.post('/login', function(req, res, next){
-  //var url = req.
-  Account.findOne( {username: req.body.username, password: req.body.password},
-    //{_id: 1, firrestname: 1, lastname: 1},
-    function(err, doc){
-      if(err){
-        throw err;
-      }else{
-        var cookie = req.cookies.login;
-        cookie.id = doc.id;
-        cookie.username = doc.username;
-        cookie.nickname = doc.nickname;
-        cookie.guest = false;
-        res.cookie('login', cookie, { maxAge: 900000, httpOnly: true });
-        
-        res.redirect('/');
-      }
-  });
-});
-
-// =====================================
-// SIGNUP ==============================
-// =====================================
-// show the signup form
-router.get('/signup', function(req, res) {
-  res.render('signup');
-});
-
-// process the signup form
-router.post('/signup', function(req, res, next){
-  
-});
 
 // =====================================
 // PROFILE SECTION =====================
@@ -86,26 +46,6 @@ router.get('/profile/:id', isLoggedIn, function(req, res) {
     user : req.user // get the user out of session and pass to template
   });
 });
-
-// =====================================
-// LOGOUT ==============================
-// =====================================
-router.get('/logout', function(req, res) {
-  //req.logout();
-  //res.redirect('/');
-  res.send('logout as ' + req.session.name);
-});
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on 
-  if (req.isAuthenticated())
-    return next();
-
-  // if they aren't redirect them to the home page
-  res.redirect('/');
-}
-
 
 
 
