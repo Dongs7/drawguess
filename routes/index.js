@@ -15,7 +15,6 @@ router.use(function(req, res, next){
   if(!cookie){
     var initialLogin = { guest: true };
     res.cookie('login', initialLogin, { maxAge: 900000, httpOnly: true });
-    
   }
   next();
 });
@@ -30,7 +29,6 @@ router.get('/cookie', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  
   res.render('index');
 });
 
@@ -40,31 +38,27 @@ router.get('/', function(req, res, next) {
 // =====================================
 // show the login form
 router.get('/login', function(req, res, next) {
-  res.render('login', { user: req.session.name });
+  res.render('login', { user: req.cookies.login });
 });
 
 
 // process the login form
 router.post('/login', function(req, res, next){
+  //var url = req.
   Account.findOne( {username: req.body.username, password: req.body.password},
-    //{_id: 1, firstname: 1, lastname: 1},
+    //{_id: 1, firrestname: 1, lastname: 1},
     function(err, doc){
       if(err){
         throw err;
       }else{
-        req.session.name = doc.username;
-        req.session.level = doc.level;
-        req.session.point = doc.point;
+        var cookie = req.cookies.login;
+        cookie.id = doc.id;
+        cookie.username = doc.username;
+        cookie.nickname = doc.nickname;
+        cookie.guest = false;
+        res.cookie('login', cookie, { maxAge: 900000, httpOnly: true });
         
-        var hour = 900000;
-        req.session.cookie.expires = new Date(Date.now() + hour);
-        req.session.cookie.maxAge = hour;
-        
-        req.session.save(function(e) {
-          // session saved
-          if(e) throw e;
-          res.redirect('/cookie');
-        });
+        res.redirect('/');
       }
   });
 });

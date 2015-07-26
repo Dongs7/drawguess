@@ -1,8 +1,11 @@
 extends layout
 
+block append link
+  script(src=prefix+'/javascripts/validate.js')
+
 block content
   div(id='signupbox', class='container')
-    form(action=prefix+'/login', method='post')
+    form(action=prefix+'/login', method='post', id='')
       div
         label Username:
         input(type='text', name='username')

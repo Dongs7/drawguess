@@ -1,15 +1,17 @@
 extends layout
 
 block content
-  - if(!user){
+  - if(user.guest){
     div(id='loginbox', class='container')
-      form(action=prefix+'/login', method='post')
+      form(action=prefix+'/login', method='post', id='login_form')
         div
           label Username:
           input(type='text', name='username')
+          div(class='valimsg', id='namemsg')
         div
           label Password:
           input(type='password', name='password')
+          div(class='valimsg', id='pwdmsg')
         div
           button(type='submit', class='btn btn-primary') Log in
   - }
