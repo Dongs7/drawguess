@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  div there's #{count} results:
+  
+  - if(count > 0){
+    - for(var i = 1; i <= count; i++){
+      div(class='search_result') #{i}. #{users[i-1]}
+    - }    
+  - }
+  - else {
+    div(class='no_result') no result found!
+  - }
