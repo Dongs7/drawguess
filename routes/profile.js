@@ -16,7 +16,7 @@ var account = require('../models/accounts.js');
 router.get('/friend', function (req,res) {
     console.log("Time to add friend.")
     var cookies = req.cookies.login;
-    addFriend(mongoose.Types.ObjectId("55b5b0420cadda302dfbe0b7"),cookies);
+    addFriend(mongoose.Types.ObjectId("55b56b060821dc7310ad7096"),cookies);
 });
 
 
