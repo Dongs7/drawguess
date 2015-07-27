@@ -12,7 +12,7 @@ var Account = require('../models/accounts.js');
 // =====================================
 // LOGOUT ==============================
 // =====================================
-router.get('/logout', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.clearCookie('login');
   var initialLogin = { guest: true };
   res.cookie('login', initialLogin, { maxAge: 900000, httpOnly: true });

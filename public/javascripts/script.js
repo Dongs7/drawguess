@@ -34,6 +34,7 @@ $(function(){
 		}
 		
 		// Move the mouse pointer
+		//alert("data.x = " + data.x + "; data.y = " + data.y);
 		cursors[data.id].css({
 			'left' : data.x,
 			'top' : data.y
@@ -44,7 +45,7 @@ $(function(){
 			
 			// Draw a line on the canvas. clients[data.id] holds
 			// the previous position of this user's mouse pointer
-			
+			//alert("data.x = " + data.x + "; data.y = " + data.y);
 			drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y);
 		}
 		
@@ -62,7 +63,7 @@ $(function(){
 		prev.y = e.pageY;
 		
 		// Hide the instructions
-		instructions.fadeOut();
+		// instructions.fadeOut();
 	});
 	
 	doc.bind('mouseup mouseleave',function(){
@@ -96,7 +97,6 @@ $(function(){
 
 	// Remove inactive clients after 10 seconds of inactivity
 	setInterval(function(){
-		
 		for(ident in clients){
 			if($.now() - clients[ident].updated > 10000){
 				
@@ -112,6 +112,7 @@ $(function(){
 	},10000);
 
 	function drawLine(fromx, fromy, tox, toy){
+		//alert("data.x = " + fromx + "; data.y = " + fromy);
 		ctx.moveTo(fromx, fromy);
 		ctx.lineTo(tox, toy);
 		ctx.stroke();

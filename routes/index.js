@@ -34,16 +34,6 @@ router.get('/', function(req, res, next) {
 
 
 // =====================================
-// LOGIN ===============================
-// =====================================
-// show the login form
-router.get('/login', function(req, res, next) {
-  res.render('login', { user: req.session.name });
-});
-
-
-
-// =====================================
 // PROFILE SECTION =====================
 // =====================================
 // we will want this protected so you have to be logged in to visit
@@ -53,26 +43,6 @@ router.get('/profile/:id', function(req, res) {
     user : req.user // get the user out of session and pass to template
   });
 });
-
-// =====================================
-// LOGOUT ==============================
-// =====================================
-router.get('/logout', function(req, res) {
-  //req.logout();
-  //res.redirect('/');
-  res.send('logout as ' + req.session.name);
-});
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on 
-  if (req.isAuthenticated())
-    return next();
-
-  // if they aren't redirect them to the home page
-  res.redirect('/');
-}
-
 
 
 
