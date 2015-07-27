@@ -67,12 +67,11 @@ function addFriend(id,cookie) {
         }
         else
         {
-            account.findOne({_id: id},function(err, userB){
+            account.findOne({ 'friends.user_id': cookie.id},function(err, B_rel){
                 if (err){
                     throw err;
                 }else{
                     // check if A has B's friend request
-                    var B_rel = userB.friends.id(cookie._id);
                     console.log(B_rel);
                     if (B_rel){
                         var date = Date.now();
@@ -90,7 +89,7 @@ function addFriend(id,cookie) {
                             accept: false
                         });
                     }
-                    userB.save(function (err) {
+                    B_rel.save(function (err) {
                         if (err) return handleError(err)
                     });
                     userA.save(function (err) {
