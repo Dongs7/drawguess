@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var friendSchema = new Schema({
-    friend: {type: mongoose.Schema.Types.ObjectId, ref: 'account'},
+    user_id: {type: mongoose.Schema.Types.ObjectId, ref: 'account'},
     accept: {type: Boolean, default: false},
     time: {type: Date, default: Date.now()}
 });
