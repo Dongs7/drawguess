@@ -59,46 +59,36 @@ router.get('/search', function(req, res) {
   });
 });
 
-// add friend
-function addFriend(id,cookie) {
-    account.findOne({_id: cookie.id, 'username': cookie.username},function(err, userA){
-        if (err){
-            throw err;
+function addFriend(id_A, id_B){
+  var accept = false;
+    
+  // first check whether B has already added A
+  account.findOne({ id: id_B, 'friends.user_id': id_A}, function(err, userB){
+    if(userB){
+      accept = true;
+      for(var i = 0; i < userB.friends.length; i++){
+        if(userB.friends[i].user_id == id_A){
+          userB.friends[i].accept = true;   
         }
-        else
-        {
-            account.findOne({ 'friends.user_id': cookie.id},function(err, B_rel){
-                if (err){
-                    throw err;
-                }else{
-                    // check if A has B's friend request
-                    console.log(B_rel);
-                    if (B_rel){
-                        var date = Date.now();
-                        B_rel.time = date;
-                        B_rel.accept = true;
-                        userA.friends.push({
-                            user_id: id,
-                            accept: true,
-                            time: date
-                        });
-                    }else{
-                        // if it's the first time A request friendship with B
-                        userA.friends.push({
-                            user_id: id,
-                            accept: false
-                        });
-                    }
-                    B_rel.save(function (err) {
-                        if (err) return handleError(err)
-                    });
-                    userA.save(function (err) {
-                        if (err) return handleError(err)
-                    });
-                }
-            });
-        }
+      }
+      userB.save(function(e){
+        if(e) throw e;
+      });
+    }
+  });
+  
+  // user A add user B as new friend
+  account.findOne({ id: id_A }, function (err, userA) {
+    if(err) throw err;
+    userA.friends.push({
+      user_id: id_B,
+      accept: accept,
+      time: Date.now()
     });
+    userA.save(function(e){
+      if(e) throw e; 
+    });
+  });
 }
 
 module.exports = router;
