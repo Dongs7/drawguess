@@ -1,19 +1,36 @@
 extends layout
 
+block append link
+  link(href='/stylesheets/login.css', rel='stylesheet', type='text/css')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  script(type='application/x-javascript').
+    addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+  link(href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700', rel='stylesheet', type='text/css')
+
 block content
   - if(user.guest){
-    div(id='loginbox', class='container')
+    div(id='loginbox', class='container login-form')
+      h1 login
+      h2
+        a(href=prefix+'/signup') Create Account
       form(action=prefix+'/login', method='post', id='login_form')
-        div
+        li
           label Username:
-          input(type='text', name='username')
+          input(type='text', name='username', class='text', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'User Name';}")
+          a.icon.user(href='#')
           div(class='valimsg', id='namemsg')
-        div
+        li
           label Password:
-          input(type='password', name='password')
+          input(type='password', name='password', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Password';}")
+          a.icon.lock(href='#')
           div(class='valimsg', id='pwdmsg')
-        div
-          button(type='submit', class='btn btn-primary') Log in
+        //div
+        //  button(type='submit', class='btn btn-primary') Log in
+        .forgot
+          h3
+            a(href='#') Forgot Password?
+          input(type='submit', onclick='myFunction()', value='Log in')
+          a.icon.arrow(href='#')
   - }
   - else{
     div(id='confirmbox', class='container')
