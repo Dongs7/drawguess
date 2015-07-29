@@ -33,7 +33,7 @@ router.post('/', function(req, res, next){
         cookie.guest = false;
         res.cookie('login', cookie, { maxAge: 900000, httpOnly: true });
         
-        res.redirect('/');
+        res.redirect('/hall');
       }
   });
 });
