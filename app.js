@@ -28,6 +28,7 @@ var login = require('./routes/login');
 var logout = require('./routes/logout');
 var signup = require('./routes/signup');
 var profile = require('./routes/profile');
+var hall = require('./routes/hall');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,6 +62,7 @@ app.use('/login', login);
 app.use('/logout', logout);
 app.use('/signup', signup);
 app.use('/profile', profile);
+app.use('/hall', hall);
 
 app.get(function(req, res, next) {
 	req.addListener('end', function () {
@@ -105,7 +107,7 @@ app.use(function(err, req, res, next) {
 
 // Listen for incoming connections from clients
 io.on('connection', function (socket) {
-
+    console.log('user connected');
 	// Start listening for mouse move events
 	socket.on('mousemove', function (data) {
 
@@ -113,6 +115,22 @@ io.on('connection', function (socket) {
 		// to everyone except the originating client.
 		socket.broadcast.emit('moving', data);
 	});
+	
+	//send console a disconnected msg when user left the page
+	socket.on('disconnect', function(){
+    console.log('user disconnected');
+    });
+    
+    //send msg and display it on console
+    socket.on('chat message', function(msg){
+      console.log('message: ' + msg);
+    });
+    
+    //broadcast all msg to users
+    socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+    });
+
 });
 
 server.listen(8080);

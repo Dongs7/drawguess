@@ -15,7 +15,10 @@ router.get('/', function (req, res) {
 // create new account
 // and then redirect to login
 router.post('/submit', function (req, res) {
-    console.log(req.body);
+    var count = 0;
+    accountModel.count({}, function(err, result){
+        count = result;
+    });
     var new_account = req.body;
     accountModel.findOne({'username': new_account.username},function(req,result){
         if (result){
@@ -26,13 +29,14 @@ router.post('/submit', function (req, res) {
         else {
             var account = new accountModel(
                 {
+                    user_id: count,
                     "username": new_account.username,
                     "password": new_account.password
                 });
             account.save(function(err,res){
                 if (err) throw  err;
             });
-            res.redirect('/');
+            res.redirect('/login');
         }
     });
 });
