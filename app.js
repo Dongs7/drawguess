@@ -30,6 +30,7 @@ var signup = require('./routes/signup');
 var profile = require('./routes/profile');
 var room = require('./routes/room');
 var hall = require('./routes/hall');
+var ranking = require('./routes/ranking');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -65,6 +66,7 @@ app.use('/signup', signup);
 app.use('/profile', profile);
 app.use('/room', room);
 app.use('/hall', hall);
+app.user();
 
 app.get(function(req, res, next) {
 	req.addListener('end', function () {
