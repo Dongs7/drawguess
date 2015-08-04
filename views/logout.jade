@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  div(id='confirmbox', class='container')
+    div #{user}, Do you want to log out first ?
+    a(href=prefix+'/logout')
+    button(class='btn btn-warning', type='button') Log out

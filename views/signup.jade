@@ -1,0 +1,45 @@
+extends layout
+
+block append link
+    script(src=prefix + '/javascripts/validate.js')
+    link(href='/stylesheets/signup.css', rel='stylesheet', type='text/css')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    script(type='application/x-javascript').
+      addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+    // webfonts
+    link(href='http://fonts.googleapis.com/css?family=Lobster|Pacifico:400,700,300|Roboto:400,100,100italic,300,300italic,400italic,500italic,500', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Raleway:400,100,500,600,700,300', rel='stylesheet', type='text/css')
+
+block content
+    div.login-head
+        h1 register forms
+    .wrap
+        .Regisration
+            div.Regisration-head
+                h2
+                    span
+                    | Sing-in
+            div(id='signupbox', class='container')
+                form(action=prefix + '/signup/submit', method='post', id='signup_form')
+                    div
+                        label Username:
+                        input(type='text', name='username', id='username',onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Username';}")
+                        div(class='valimsg', id='namemsg')
+                    div
+                        label Password:
+                        input(type='password', name='password', id='password', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Password';}")
+                        div(class='valimsg', id='pwdmsg')
+                    div
+                        label Re-Password:
+                        input(type='password', name='re_password', id='re_password', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Re-Password';}")
+                    
+                    div.Remember-me
+                        .p-container
+                            .submit
+                                input(type='submit', onclick='myFunction()', value='Submit')
+                            .clear
+
+//script.
+//    if (message)
+//        alert(message)
+
