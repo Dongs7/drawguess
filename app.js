@@ -31,6 +31,9 @@ var profile = require('./routes/profile');
 var room = require('./routes/room');
 var hall = require('./routes/hall');
 
+// get answer from database
+var answers = require('../models/answer.js');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -144,6 +147,12 @@ io.on('connection', function (socket) {
     // randomly pick a player to be drawer (unique)
     var randomClient = Math.floor(Math.random() * clients.length);
     drawer = clients[randomClient];
+    
+    // roll an answer and send it to drawer
+    answers.findOne({keyword: 'default'}, {answers: true}, function(err, doc){
+      var randomAnswer = Math.floor(Math.random() * doc.length);
+      answer = doc[randomAnswer];
+    })
     drawer.emit('answer', answer);
       
     //broadcast the timer
