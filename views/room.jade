@@ -6,6 +6,8 @@ block append link
   script(src=prefix+'/javascripts/test.js')
 
 block content
+  div(id='infobox')
+    div(id='room')=room
   h2 there's 
     span(id='count') 0 
     span in this room
@@ -15,6 +17,9 @@ block content
   
   h2 the answer is:
     span(id='answer')
+    
+  h2 Timer:
+    span(id='timer')
     
   
   ul(id='list')
