@@ -32,7 +32,7 @@ var room = require('./routes/room');
 var hall = require('./routes/hall');
 
 // get answer from database
-var answers = require('../models/answer.js');
+var answers = require('./models/answer.js');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -255,8 +255,9 @@ io.on('connection', function (socket) {
 //    }
 //}, 1000);
 
-
-io.of('/room/test').on('connection', function (socket) {
+var test = io.of('/room/test');
+test.on('connection', function (socket) {
+  console.log('Special');
 	// Start listening for mouse move events
 	socket.on('mousemove', function (data) {
 		// This line sends the event (broadcasts it)
@@ -266,26 +267,27 @@ io.of('/room/test').on('connection', function (socket) {
   
   //send msg and display it on console
   //broadcast all msg to users
-  socket.on('chat message', function(msg){
+  socket.on('chat', function(msg){
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    test.emit('chat', msg);
+    //socket.broadcast.emit('chat', msg);
   });
       
   socket.on('test', function(msg){
-    io.emit('test', msg);
+    test.emit('test', msg);
   });
   
   // when new client enter room
   socket.on('join', function(){    
     console.log('New client connected (id=' + socket.id + ').');
     clients.push(socket);
-    io.emit('count', clients.length);
+    test.emit('count', clients.length);
     
     // when there are enough player to play the game
     if(clients.length === 2){
       status = 'ingame';
       var randomClient = Math.floor(Math.random() * clients.length);
-      socket.emit('status', status);
+      test.emit('status', status);
       clients[randomClient].emit('answer', answer);
     }
   });
@@ -297,7 +299,7 @@ io.of('/room/test').on('connection', function (socket) {
         clients.splice(index, 1);
         console.log('Client gone (id=' + socket.id + ').');
     }
-    io.emit('count', clients.length);
+    test.emit('count', clients.length);
   });
 	
 	//send console a disconnected msg when user left the page
