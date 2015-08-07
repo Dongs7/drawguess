@@ -8,10 +8,19 @@ block append link
 block content
   div(id='infobox')
     div(id='room')=room
+  
   h2 there's 
     span(id='count') 0 
     span in this room
-    
+   
+  audio(id='player' loop='loop') 
+   source(src='/bgmusic/1.wav' type='audio/mpeg')
+  
+  a(onclick="document.getElementById('player').play()")
+    img(src='/images/on1.png')
+  a(onclick="document.getElementById('player').pause()")
+    img(src='/images/off2.png')
+
   h2 game status:
     span(id='status')
   

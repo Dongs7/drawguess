@@ -6,12 +6,14 @@ $(function() {
     //var socket = io.connect(location.origin+'/room/test');
     var user_count = 0;
     
+    
+    
     //Join game
     socket.emit('join');
     
     //read players number
     socket.on('count', function(count){
-      user_count = count;
+      user_count=count;
       $('span#count').text(user_count);
     }); 
     
