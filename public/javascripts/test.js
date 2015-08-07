@@ -1,7 +1,9 @@
 $(function() {
-  // Handler for .ready() called.
-  //var socket = io('/test');
+    // Handler for .ready() called.
+    //var socket = io('/test');
     var socket = io();
+    //alert(room);
+    //var socket = io.connect(location.origin+'/room/test');
     var user_count = 0;
     
     //Join game
@@ -23,17 +25,26 @@ $(function() {
       $('span#status').text(status);
     });    
     
+    // read timer from server
+    socket.on('timer', function(timer){
+      if(timer == -1){
+          $('span#status').text();
+      }else{
+          $('span#timer').text('timer left: ' + timer);   
+      }
+    });   
+    
     
     //Emit messages what user enter
     $('form').submit(function(){
-      socket.emit('test', $('#msg').val());
+      socket.emit('chat', $('#msg').val());
       $('#msg').val('');
       return false;
     });
     
     //This code will post user messages on div#message box and automatically scrolling down when new messages are added
     
-    socket.on('test', function(msg){
+    socket.on('chat', function(msg){
       $('ul#list').append($('<li>').text(msg));
       //$('#messages').scrollTop($('#messages')[0].scrollHeight);
     });

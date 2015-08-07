@@ -13,6 +13,14 @@ var io = socket.listen(server);
 
 //nsp.emit('hi', 'everyone!');
 
+var nsp = io.of('/room/test');
+var roomnumber = 0;
+
+var clients = [];
+var sequence = 1;
+var status = '';
+var answer = 'banana';
+// Listen for incoming connections from clients
 
 
 // =====================================
@@ -20,7 +28,7 @@ var io = socket.listen(server);
 // =====================================
 // test room
 router.get('/test', function(req, res, next) {
-  res.render('room', { user: req.cookies.login });
+  res.render('room', { user: req.cookies.login, room: 'test' });
 });
 
 
