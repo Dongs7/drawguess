@@ -66,7 +66,6 @@ app.use('/signup', signup);
 app.use('/profile', profile);
 app.use('/room', room);
 app.use('/hall', hall);
-app.user();
 
 app.get(function(req, res, next) {
 	req.addListener('end', function () {

@@ -36,7 +36,7 @@ $(function () {
 
     // when the client gets the answer, it means he is the drawer
     socket.on('answer', function (answer) {
-        answer = 'apple';
+        answer = answer;
         draw = true;
     });
 
