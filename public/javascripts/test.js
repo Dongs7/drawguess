@@ -45,7 +45,7 @@ $(function() {
 
     ctrl.onclick = function(){
 	    if (bgPlayer.paused){
-	        bgPlayer.src = '/bgmusic/tr' + randomTrack + '.mp3';
+	        //bgPlayer.src = '/bgmusic/tr' + randomTrack + '.mp3';
 		    bgPlayer.play();
 	    }
 	    
