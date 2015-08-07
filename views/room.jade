@@ -1,9 +1,10 @@
 extends layout
 
 block append link
-  script(src='https://cdn.socket.io/socket.io-1.3.5.js')
-  script(src='http://code.jquery.com/jquery-1.11.1.js')
-  script(src=prefix+'/javascripts/test.js')
+    script(src='https://cdn.socket.io/socket.io-1.3.5.js')
+    script(src='http://code.jquery.com/jquery-1.11.1.js')
+    script(src=prefix + '/javascripts/test.js')
+    script(src=prefix + '/javascripts/script.js')
 
 block content
   div(id='infobox')
@@ -33,3 +34,17 @@ block content
     
   //script(src=prefix+'/javascripts/test.js')
   //script(src='/javascripts/test.js')
+  div
+        div(id='welcome') Welcome #{user}
+        div(id='cursors')
+        canvas(id='canvas', width='500', height='500')
+        ul
+            button(id='black') Black
+            button(id='purple') Purple
+            button(id='green') Green
+            button(id='yellow') Yellow
+            button(id='brown') Brown
+            button(id='eraser') Eraser
+        button(id='small') Small
+        button(id='normal') Normal
+        button(id='large') Large
