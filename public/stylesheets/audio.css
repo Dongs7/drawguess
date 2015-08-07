@@ -1,0 +1,9 @@
+#prev, #next{
+width: 20px;
+height: 20px;
+}
+
+#pause{
+	display : none;
+}
+
