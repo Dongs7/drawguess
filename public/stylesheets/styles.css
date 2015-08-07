@@ -141,10 +141,3 @@ footer a i b{
 	color:#c92020;
 	font-weight: normal;
 }
-
-canvas {
-	position: relative;
-	top: 100px;
-	left: 100px;
-	background: #ccc;
-}
