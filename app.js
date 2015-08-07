@@ -30,6 +30,7 @@ var signup = require('./routes/signup');
 var profile = require('./routes/profile');
 var room = require('./routes/room');
 var hall = require('./routes/hall');
+var ranking = require('./routes/ranking');
 
 // get answer from database
 var answers = require('./models/answer.js');
