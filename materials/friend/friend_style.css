@@ -28,6 +28,39 @@ body{
  	background-size: auto;
 }
 
+.NavBar{
+	width: 100%;
+	background-color: black;
+	position: relative;
+	padding-bottom:60px;
+}
+
+#home{
+	float: left;
+	margin-left: 5%;
+	margin-top: 1%;
+	font-family: 'Nunito', sans-serif;
+	font-size: 20px;
+	color: white;
+	border: none;
+	outline: none;
+	background-color: black;
+	position: relative;
+}
+
+#mute{
+	float: right;
+	margin-right: 5%;
+	margin-top: 1%;
+	font-family: 'Nunito', sans-serif;
+	font-size: 20px;
+	color: white;
+	border: none;
+	outline: none;
+	background-color: black;
+	position: relative;
+}
+
 .friend-form {
 	/*background: url(images/bgf.png) no-repeat 100% 0%;
 	background-size: 100%;*/
