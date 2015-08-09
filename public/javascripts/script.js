@@ -37,7 +37,10 @@ $(function () {
     // when the client gets the answer, it means he is the drawer
     socket.on('answer', function (answer) {
         answer = answer;
-        draw = true;
+    });
+
+    socket.on('draw', function (value) {
+        draw = value;
     });
 
     socket.on('moving', function (data) {
@@ -198,7 +201,8 @@ $(function () {
         clickX = [];
         clickY = [];
         drawLine(clickX, clickY, clickDrag, clickColor, clickSize);
-    })
+    });
+
     function drawLine(clickX, clickY, clickDrag, clickColor, clickSize) {
         //alert("data.x = " + fromx + "; data.y = " + fromy);
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas

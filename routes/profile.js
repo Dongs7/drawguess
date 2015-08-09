@@ -13,12 +13,6 @@ var account = require('../models/accounts.js');
 // we will want this protected so you have to be logged in to visit
 // we will use route middleware to verify this (the isLoggedIn function)
 
-router.get('/friend', function (req, res) {
-    console.log("Time to add friend.")
-    var cookies = req.cookies.login;
-    addFriend(mongoose.Types.ObjectId("55b56b060821dc7310ad7096"), cookies.id);
-});
-
 
 router.get('/view/:user_id', function (req, res) {
     var body = {
