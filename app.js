@@ -129,6 +129,9 @@ var status_apple = 'waiting',
     status_banana = 'waiting',
     status_orange = 'waiting';
 var answer_apple, answer_banana, answer_orange;
+var passed_apple = [],
+    passed_banana = [],
+    passed_orange = [];
 var timer_apple, timer_banana, timer_orange;
 
 // roundTime can be reset from config file
@@ -214,17 +217,18 @@ function startGame(room, currentRoundTime, timer, status, clients, drawer, answe
     room.emit('answer', null);
 
     // roll an answer and send it to drawer
-    // answers.findOne({keyword: 'fruit'}, {answers: true}, function (err, doc) {
-    //     var randomAnswer = Math.floor(Math.random() * doc.answers.length);
-    //     while (already_answer.indexOf(randomAnswer) > -1) {
-    //         if (already_answer.length == doc.answers.length) {
-    //             already_answer = [];
-    //         }
-    //         randomAnswer = Math.floor(Math.random() * doc.answers.length);
-    //     }
-    //     already_answer.push(randomAnswer);
-    //     answer = doc.answers[randomAnswer];
-    // });
+    answers.findOne({ keyword: 'fruit' }, { answers: true }, function (err, doc) {
+        var randomAnswer = Math.floor(Math.random() * doc.answers.length);
+        while (passed_apple.indexOf(randomAnswer) > -1) {
+            if (passed_apple.length == doc.answers.length) {
+                passed_apple = [];
+            }
+            randomAnswer = Math.floor(Math.random() * doc.answers.length);
+        }
+        passed_apple.push(randomAnswer);
+        answer = doc.answers[randomAnswer];
+        updateAnswer(roomname, answer);
+    });
 
     drawer.emit('draw', true);
     drawer.emit('answer', answer);
