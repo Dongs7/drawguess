@@ -214,17 +214,17 @@ function startGame(room, currentRoundTime, timer, status, clients, drawer, answe
     room.emit('answer', null);
 
     // roll an answer and send it to drawer
-    answers.findOne({keyword: 'fruit'}, {answers: true}, function (err, doc) {
-        var randomAnswer = Math.floor(Math.random() * doc.answers.length);
-        while (already_answer.indexOf(randomAnswer) > -1) {
-            if (already_answer.length == doc.answers.length) {
-                already_answer = [];
-            }
-            randomAnswer = Math.floor(Math.random() * doc.answers.length);
-        }
-        already_answer.push(randomAnswer);
-        answer = doc.answers[randomAnswer];
-    });
+    // answers.findOne({keyword: 'fruit'}, {answers: true}, function (err, doc) {
+    //     var randomAnswer = Math.floor(Math.random() * doc.answers.length);
+    //     while (already_answer.indexOf(randomAnswer) > -1) {
+    //         if (already_answer.length == doc.answers.length) {
+    //             already_answer = [];
+    //         }
+    //         randomAnswer = Math.floor(Math.random() * doc.answers.length);
+    //     }
+    //     already_answer.push(randomAnswer);
+    //     answer = doc.answers[randomAnswer];
+    // });
 
     drawer.emit('draw', true);
     drawer.emit('answer', answer);
