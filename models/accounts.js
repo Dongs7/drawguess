@@ -16,9 +16,34 @@ var accountSchema = new Schema({
     email: String,
     friends: [friendSchema],
     point: {type: Number, default: 0},
+    level: {type: Number, default: 1},
     reputation: String,
     guest: Boolean,
     facebook: Schema.Types.ObjectId
 }, {collection: 'account'});
+
+accountSchema.methods.winner = function(id, score){
+    var msg = '';
+    this.model('account').findOne({ _id: id }, 
+        {nickname: true, point: true, level: true},
+        function(err, doc){
+            if(err) throw err;
+            if(score <= 0) return 'error: invalid score';
+            var max = 10 * doc.level;
+            doc.point += score;
+            msg = 'Congratulations, Player ' + doc.nickname + ' get ' + score + ' points.';
+            if(doc.point >= max){
+                doc.level++;
+                msg += ' Level Up!!!';
+            }
+            
+            console.log('msg: ' + msg);
+            doc.save(function (e){
+                if(e) throw e;
+            });
+        }).exec();
+    return msg;
+}
+
 
 module.exports = mongoose.model('account', accountSchema);

@@ -27,8 +27,8 @@ var answer = 'banana';
 // TEST ================================
 // =====================================
 // test room
-router.get('/test', function(req, res, next) {
-  res.render('room', { user: req.cookies.login, room: 'test' });
+router.get('/apple', function(req, res, next) {
+  res.render('room', { user: req.cookies.login, room: 'apple' });
 });
 
 

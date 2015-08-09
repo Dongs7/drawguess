@@ -8,8 +8,15 @@ block append link
 block content
   div(id='infobox')
     div(id='room')=room
+    div(id='cookie')
+      div(id='guest')= user.guest
+      - if(!user.guest){
+        div(id='id')= user.id
+        div(id='username')= user.username
+        div(id='nickname')= user.nickname
+      - }
   h2 there's 
-    span(id='count') 0 
+    span(id='count') 0
     span in this room
     
   h2 game status:
@@ -28,8 +35,3 @@ block content
   form(action='')
     input(class='msg', id='msg')
     button(type='submit') Enter
-    
-  //button(id='joingame') Join game
-    
-  //script(src=prefix+'/javascripts/test.js')
-  //script(src='/javascripts/test.js')
