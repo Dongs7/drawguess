@@ -7,7 +7,8 @@ $(function () {
     //}
 
     // The URL of your web server (the port is set in app.js)
-    var url = 'http://localhost:8080';
+    var room = $('div#room').text();
+    var url = location.origin+'/room/'+room;
 
     var ctx = document.getElementById('canvas').getContext("2d");
 
@@ -31,7 +32,7 @@ $(function () {
     var clickDrag = new Array();
     var clickColor = new Array();
     var clickSize = new Array();
-
+    
     var socket = io.connect(url);
 
     // when the client gets the answer, it means he is the drawer
