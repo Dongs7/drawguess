@@ -32,7 +32,7 @@ $(function () {
     var clickColor = new Array();
     var clickSize = new Array();
 
-    var socket = io.connect();
+    var socket = io.connect(url);
 
     // when the client gets the answer, it means he is the drawer
     socket.on('answer', function (answer) {

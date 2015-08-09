@@ -96,7 +96,7 @@ $(function() {
     
     //Emit messages what user enter
     $('form').submit(function(){
-      socket.emit('chat', $('#msg').val());
+      socket.emit('chat', $('#msg').val(), $('div#infobox div#nickname').text());
       $('#msg').val('');
       return false;
     });

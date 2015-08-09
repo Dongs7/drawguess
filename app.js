@@ -9,6 +9,7 @@ var socket = require('socket.io');
 var app = require('express')();
 var server = require('http').Server(app);
 var io = socket.listen(server);
+var async = require('async');
 
 //var serv = require('http').Server(app);
 
@@ -249,7 +250,7 @@ apple.on('connection', function (socket) {
 
     //send msg and display it on console
     //broadcast all msg to users
-    socket.on('chat', function (msg) {
+    socket.on('chat', function (msg, name) {
         // msg block enabled during the game
         if (status_apple == 'ingame') {
             // if someone input the answer
@@ -260,25 +261,19 @@ apple.on('connection', function (socket) {
                 }
                 else {
                     // win the game (guess the answer)
-                    apple.emit('chat', msg);
-                    apple.emit('info', 'someone guess the answer!');
+                    apple.emit('chat', name + ": " + msg);
+                    apple.emit('info', 'Congratulations, ' + name + ' guessed the right answer! Get 10 points.');
                     var instance = new accounts();
 
                     var index = clients_apple.indexOf(drawer_apple);
                     var info;
                     if (index > -1 && auth_apple[index] != 'guest') {
-                        info = instance.winner(auth_apple[index], 10);
-                        if (info) {
-                            apple.emit('info', info);
-                        }
+                        instance.winner(auth_apple[index], 10);
                     }
 
                     index = clients_apple.indexOf(socket);
                     if (index > -1 && auth_apple[index] != 'guest') {
-                        info = instance.winner(auth_apple[index], 10);
-                        if (info) {
-                            apple.emit('info', info);
-                        }
+                        instance.winner(auth_apple[index], 10);
                     }
 
                     return;
@@ -289,7 +284,7 @@ apple.on('connection', function (socket) {
                 return;
             }
         }
-        apple.emit('chat', msg);
+        apple.emit('chat', name + ": " + msg);
     });
 
 
