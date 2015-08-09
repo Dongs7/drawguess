@@ -14,18 +14,25 @@ $(function() {
     	{filename:'/bgmusic/tr3.mp3'}
     ];
     var randomTrack = Math.floor(Math.random()*songs.length) + 1;
+    var currentTr = randomTrack;
     var song = songs[randomTrack];
    // var loc = document.querySelector('source').src = song.filename;
     
     var bgPlayer = document.getElementById('bgplayer');
+    
+    //backgound interface controller
     var ctrl = document.getElementById('playerControl');
+    var ctrl2 = document.getElementById('prevControl');
+    var ctrl3 = document.getElementById('nextControl');
+    
     var play = document.getElementById('play');
     var pause = document.getElementById('pause');
     var prev = document.getElementById('prev');
     var next = document.getElementById('next');
     
     bgPlayer.addEventListener("ended", function(){
-	    bgPlayer.src = "/bgmusic/tr" + (randomTrack) +".mp3";
+    if(currentTr < songs.length){
+	    bgPlayer.src = "/bgmusic/tr" + (currentTr + 1) +".mp3";}
 	    bgPlayer.play();
     })
     function toggleAudioImage(){
@@ -43,20 +50,39 @@ $(function() {
 	    }
     }
 
+    // play,pause controller
     ctrl.onclick = function(){
 	    if (bgPlayer.paused){
-	        //bgPlayer.src = '/bgmusic/tr' + randomTrack + '.mp3';
-		    bgPlayer.play();
-	    }
+		    bgPlayer.play();}
+		else{
+		    bgPlayer.pause();}
 	    
-	    else{
-		    bgPlayer.pause();
-	    }
-	    
-	    toggleAudioImage();
-	    
+	    toggleAudioImage(); 
 	    return false;
     };
+    
+    //prev control
+    ctrl2.onclick = function(){
+	    if (currentTr > 1)
+	    {
+	        currentTr--;
+	        bgPlayer.src = '/bgmusic/tr' + (currentTr) + '.mp3';
+	    }
+	    bgPlayer.play();
+	    return false;
+    };
+    
+    //next control
+    ctrl3.onclick = function(){
+	    if (currentTr < songs.length)
+	    {
+	        currentTr++;
+	        bgPlayer.src = '/bgmusic/tr' + (currentTr) + '.mp3';
+	    }
+		bgPlayer.play();
+	    return false;
+    };
+    
     //Join game
     socket.emit('join');
     
@@ -96,7 +122,7 @@ $(function() {
     //This code will post user messages on div#message box and automatically scrolling down when new messages are added
     
     socket.on('chat', function(msg){
-      $('ul#list').append($('<li>').text(msg));
+      $('ul#list').append($('<li>').text(socket.id+': '+msg));
       //$('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
     

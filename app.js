@@ -269,7 +269,7 @@ test.on('connection', function (socket) {
   //broadcast all msg to users
   socket.on('chat', function(msg){
     console.log('message: ' + msg);
-    test.emit('chat', msg);
+    test.emit('chat',msg);
     //socket.broadcast.emit('chat', msg);
   });
       

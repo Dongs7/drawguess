@@ -16,15 +16,17 @@ block content
    
   audio(class='playsong' id='bgplayer' preload='auto')
    source(src='/bgmusic/tr1.mp3')
-   source(src='/bgmusic/tr2.mp3')
-   source(src='/bgmusic/tr3.mp3')
    
-  a(id='playerControl' href='#')
+  a(id='prevControl' href='#')
     img(src='/images/prev.png' id='prev')
+         
+  a(id='playerControl' href='#')
     img(src='/images/on1.png' id='play' )
     img(src='/images/off2.png' id='pause')
-    img(src='/images/next.png' id='next')
 
+  a(id='nextControl' href='#')
+    img(src='/images/next.png' id='next')
+    
   h2 game status:
     span(id='status')
   
