@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game room</title>
+	<meta charset="utf-8">
+	<link href="room_style.css" rel='stylesheet' type='text/css' />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="application/x-javascript">addEventListener("load",function(){setTimeout(hideURLbar,0);},false);function hideURLbar(){window.scrollTo(0,1);}</script>
+	<link href='http://fonts.googleapis.com/css?family=Frijole' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Nunito:700' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+
+<body>
+	<div class="NavBar">
+	</div>
+
+	<div class="player">
+		<h1>Player In Room</h1>
+		<ul>
+			<li>Vingo</li>
+			<li>Raymond</li>
+			<li>David</li>
+			<li>Billy</li>
+			<li>Roy</li>
+			<li>Jeon</li>
+			<li>Vingo</li>
+			<li>Raymond</li>
+			<li>David</li>
+			<li>Billy</li>
+			<li>Roy</li>
+			<li>Jeon</li>
+			<li>Vingo</li>
+			<li>Raymond</li>
+			<li>David</li>
+			<li>Billy</li>
+			<li>Roy</li>
+			<li>Jeon</li>
+			<li>Vingo</li>
+			<li>Raymond</li>
+			<li>David</li>
+			<li>Billy</li>
+			<li>Roy</li>
+			<li>Jeon</li>
+			<li>Vingo</li>
+			<li>Raymond</li>
+			<li>David</li>
+			<li>Billy</li>
+			<li>Roy</li>
+			<li>Jeon</li>
+		</ul>
+	</div>
+
+	<div class="left">
+		<div class="toolBox">
+			<table>
+				<tr>
+					<td><button id="black" style="background-color:black"></button></td>
+					<td><button id="white" style="background-color:white"></button></td>
+					<td><button id="gray" style="background-color:gray"></button></td>
+				</tr>
+				<tr>
+					<td><button id="red" style="background-color:red"></button></td>
+					<td><button id="orange" style="background-color:orange"></button></td>
+					<td><button id="yellow" style="background-color:yellow"></button></td>
+				</tr>
+				<tr>
+					<td><button id="green" style="background-color:green"></button></td>
+					<td><button id="blue" style="background-color:blue"></button></td>
+					<td><button id="purple" style="background-color:purple"></button></td>
+				</tr>	
+				<tr id="pensize" style="border-top:1px solid black">
+					<td><button id="pensize_small" style="background-color:black"></button></td>
+					<td><button id="pensize_medium" style="background-color:black"></button></td>
+					<td><button id="pensize_large" style="background-color:black"></button></td>
+				</tr>
+				<!-- <button id="eraser" style="background-image:url(images/eraser.png)"></button> -->
+			</table>
+		</div>
+
+		<div class="chatting" ng-app="myApp" ng-controller="chattingCtrl">
+			<ul>
+				<li ng-repeat="x in chatting">
+					{{(x.sentence)}}
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="timeBar">
+		<p style="float:left; margin-left:2%">Time left:</p>
+		<p id="time" style="float:left; margin-left:2%">20s</p>
+		<p id="answer" style="float:left; margin-left:24%">Banana</p>
+		<p id="status" style="margin-left:90%; background-color:green; height:25px; width:25px; border-radius:25px; border:2px solid white"></p>
+	</div>
+
+	<div class="drawingArea">
+	</div>
+
+	<!-- <div class="answerBox">
+		<p>You are drawing: Banana</p>
+	</div> -->
+
+	<!-- <div class="answerInput">
+		<input id="answer" type="text" value="Take a guess" onfocus="this.value = '';" onblur="if(this.value == ''){this.value = 'Take a guess';}" >
+	</div> -->
+
+
+	<input id="chat" type="text"></input>
+
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('chattingCtrl', function($scope){
+			$scope.chatting = [
+				{sentence:'Vingo'},
+				{sentence:'Raymond'},
+				{sentence:'David'},
+				{sentence:'Billy'},
+				{sentence:'Roy'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				{sentence:'Jeon'},
+				
+			]
+
+			$scope.addData = function(){
+				$scope.chatting.push({sentence:$scope.data})
+			}
+		})
+	</script>
+</body>
+</html>
