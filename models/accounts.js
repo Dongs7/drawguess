@@ -41,8 +41,8 @@ accountSchema.methods.winner = function(id, score){
             doc.save(function (e){
                 if(e) throw e;
             });
-        }).exec();
-    return msg;
+            return msg;
+        });
 }
 
 

@@ -74,7 +74,7 @@ app.use('/profile', profile);
 app.use('/room', room);
 app.use('/hall', hall);
 app.use('/answer', answerhelper);
-app.use('/friend',friendhelper);
+app.use('/friend', friendhelper);
 
 app.get(function (req, res, next) {
     req.addListener('end', function () {
@@ -139,76 +139,85 @@ answer_apple = answer_banana = answer_orange = 'banana';
 currentRoundTime_apple = currentRoundTime_banana = currentRoundTime_orange = roundTime;
 
 
-function updateStatus(roomname, value){
-  switch(roomname){
-    case 'apple': status_apple = value;
-    case 'banana': status_banana = value;
-    case 'orange': status_orange = value;
-  }
+function updateStatus(roomname, value) {
+    switch (roomname) {
+        case 'apple':
+            status_apple = value;
+        case 'banana':
+            status_banana = value;
+        case 'orange':
+            status_orange = value;
+    }
 };
 
-function updateAnswer(roomname, value){
-  switch(roomname){
-    case 'apple': answer_apple = value;
-    case 'banana': answer_banana = value;
-    case 'orange': answer_orange = value;
-  }
+function updateAnswer(roomname, value) {
+    switch (roomname) {
+        case 'apple':
+            answer_apple = value;
+        case 'banana':
+            answer_banana = value;
+        case 'orange':
+            answer_orange = value;
+    }
 };
 
-function updateDrawer(roomname, value){
-  switch(roomname){
-    case 'apple': drawer_apple = value;
-    case 'banana': drawer_banana = value;
-    case 'orange': drawer_orange = value;
-  }
+function updateDrawer(roomname, value) {
+    switch (roomname) {
+        case 'apple':
+            drawer_apple = value;
+        case 'banana':
+            drawer_banana = value;
+        case 'orange':
+            drawer_orange = value;
+    }
 }
 
 // start counting down ingame
-function countDown(room, currentRoundTime, timer, status, clients, drawer, answer){
-  currentRoundTime = roundTime;
-  timer = setInterval(function() { 
-      room.emit('timer', currentRoundTime--);
-      if(currentRoundTime ==  -1){
-        timeUp(room, timer);
-        
-        setTimeout(function () {
-          startGame(room, currentRoundTime, timer, status, clients, drawer, answer);
-          }, 3000)
-      }
+function countDown(room, currentRoundTime, timer, status, clients, drawer, answer) {
+    currentRoundTime = roundTime;
+    timer = setInterval(function () {
+        room.emit('timer', currentRoundTime--);
+        if (currentRoundTime == -1) {
+            timeUp(room, timer);
+
+            setTimeout(function () {
+                startGame(room, currentRoundTime, timer, status, clients, drawer, answer);
+            }, 3000)
+        }
     }, 1000);
 };
 
-function timeUp(room, timer){
-  clearInterval(timer);
-  room.emit('timer', 'time\'s up!');
-  updateStatus(room.name.substring(6), 'waiting');
-  room.emit('status', 'waiting');
+function timeUp(room, timer) {
+    clearInterval(timer);
+    room.emit('timer', 'time\'s up!');
+    updateStatus(room.name.substring(6), 'waiting');
+    room.emit('status', 'waiting');
 };
 
-function stopcountDown(timer){
-  clearInterval(timer);
+function stopcountDown(timer) {
+    clearInterval(timer);
 };
-  
+
 
 // control the new instance of game
 function startGame(room, currentRoundTime, timer, status, clients, drawer, answer) {
-  status = 'ingame';
-  
-  var roomname = room.name.substring(6);
-  updateStatus(roomname, status);
-  // randomly pick a player to be drawer (unique)
-  var randomClient = Math.floor(Math.random() * clients.length);
-  drawer = clients[randomClient];
-  updateDrawer(roomname, drawer);
-  
-  room.emit('draw', false);
-  room.emit('answer', null);
-  
-  // roll an answer and send it to drawer
+    status = 'ingame';
+
+    var roomname = room.name.substring(6);
+    updateStatus(roomname, status);
+    // randomly pick a player to be drawer (unique)
+    var randomClient = Math.floor(Math.random() * clients.length);
+    drawer = clients[randomClient];
+    updateDrawer(roomname, drawer);
+
+    room.emit('draw', false);
+    room.emit('answer', null);
+
+    // roll an answer and send it to drawer
     answers.findOne({keyword: 'fruit'}, {answers: true}, function (err, doc) {
         var randomAnswer = Math.floor(Math.random() * doc.answers.length);
         while (already_answer.indexOf(randomAnswer) > -1) {
-            if (already_answer.length == doc.answers.length){
+            if (already_answer.length == doc.answers.length) {
                 already_answer = [];
             }
             randomAnswer = Math.floor(Math.random() * doc.answers.length);
@@ -216,16 +225,14 @@ function startGame(room, currentRoundTime, timer, status, clients, drawer, answe
         already_answer.push(randomAnswer);
         answer = doc.answers[randomAnswer];
     });
-  
-  drawer.emit('draw', true);
-  drawer.emit('answer', answer);
-  room.emit('status', status);
-      
-  //broadcast the timer
-  countDown(room, currentRoundTime, timer, status, clients, drawer, answer);
+
+    drawer.emit('draw', true);
+    drawer.emit('answer', answer);
+    room.emit('status', status);
+
+    //broadcast the timer
+    countDown(room, currentRoundTime, timer, status, clients, drawer, answer);
 };
-  
-  
 
 
 var apple = io.of('/room/apple'),
@@ -233,113 +240,111 @@ var apple = io.of('/room/apple'),
     orange = io.of('/room/orange');
 // Listen for incoming connections from clients
 apple.on('connection', function (socket) {
-	// Start listening for mouse move events
-	socket.on('mousemove', function (data) {
-		// This line sends the event (broadcasts it)
-		// to everyone except the originating client.
-		socket.broadcast.emit('moving', data);
-	});
-  
-  //send msg and display it on console
-  //broadcast all msg to users
-  socket.on('chat', function(msg){
-    // msg block enabled during the game
-    if(status_apple == 'ingame'){
-      // if someone input the answer
-      if(msg.trim() == answer_apple){
-        if(socket == drawer_apple){
-          drawer_apple.emit('info', 'drawer can\'t type your answer!');
-          return;
-        }
-        else{
-          // win the game (guess the answer)
-          apple.emit('chat', msg);
-          apple.emit('info', 'someone guess the answer!');
-          var instance = new accounts();
-          
-          var index = clients_apple.indexOf(drawer_apple);
-          var info;
-          if(index > -1 && auth_apple[index] != 'guest'){
-            info = instance.winner(auth_apple[index], 10);
-            if(info){
-              apple.emit('info', info);
+    // Start listening for mouse move events
+    socket.on('mousemove', function (data) {
+        // This line sends the event (broadcasts it)
+        // to everyone except the originating client.
+        socket.broadcast.emit('moving', data);
+    });
+
+    //send msg and display it on console
+    //broadcast all msg to users
+    socket.on('chat', function (msg) {
+        // msg block enabled during the game
+        if (status_apple == 'ingame') {
+            // if someone input the answer
+            if (msg.trim() == answer_apple) {
+                if (socket == drawer_apple) {
+                    drawer_apple.emit('info', 'drawer can\'t type your answer!');
+                    return;
+                }
+                else {
+                    // win the game (guess the answer)
+                    apple.emit('chat', msg);
+                    apple.emit('info', 'someone guess the answer!');
+                    var instance = new accounts();
+
+                    var index = clients_apple.indexOf(drawer_apple);
+                    var info;
+                    if (index > -1 && auth_apple[index] != 'guest') {
+                        info = instance.winner(auth_apple[index], 10);
+                        if (info) {
+                            apple.emit('info', info);
+                        }
+                    }
+
+                    index = clients_apple.indexOf(socket);
+                    if (index > -1 && auth_apple[index] != 'guest') {
+                        info = instance.winner(auth_apple[index], 10);
+                        if (info) {
+                            apple.emit('info', info);
+                        }
+                    }
+
+                    return;
+                }
             }
-          }
-          
-          index = clients_apple.indexOf(socket);
-          if(index > -1 && auth_apple[index] != 'guest'){
-            info = instance.winner(auth_apple[index], 10);
-            if(info){
-              apple.emit('info', info);
+            else if (socket == drawer_apple && msg.indexOf(answer_apple) > -1) {
+                drawer_apple.emit('info', 'drawer can\'t type your answer!');
+                return;
             }
-          }
-          
-          return;
         }
-      }
-      else if(socket == drawer_apple && msg.indexOf(answer_apple) > -1){
-        drawer_apple.emit('info', 'drawer can\'t type your answer!');
-        return;
-      }
-    }
-    apple.emit('chat', msg);
-  });
-  
-  
-  socket.on('clock', function(time){
-    apple.emit('clock', time);
-  });
-  
-  // when new client enter room
-  socket.on('join', function(cookie){    
-    console.log('New client connected (id=' + socket.id + ').');
-    clients_apple.push(socket);
-    auth_apple.push(cookie);
-    
-    // when there are enough player to play the game
-    if(clients_apple.length === 2){
-      startGame(apple, currentRoundTime_apple, timer_apple, status_apple, clients_apple, drawer_apple, answer_apple);
-    }
-    
-    // status should be boardcast to every new player
-    apple.emit('count', clients_apple.length);
-    apple.emit('status', status_apple);
-  });
-  
-  // when client leave room
-  socket.on('leave', function(){
-    var index = clients_apple.indexOf(socket);
-    if (index != -1) {
-        clients_apple.splice(index, 1);
-        auth_apple.splice(index, 1);
-        console.log('Client gone (id=' + socket.id + ') from room apple.');
-        
-        // if there's no enough players left inside this room
-        if(clients_apple.length <= 1){
-          status_apple = 'waiting';
-          stopcountDown(timer_apple);
+        apple.emit('chat', msg);
+    });
+
+
+    socket.on('clock', function (time) {
+        apple.emit('clock', time);
+    });
+
+    // when new client enter room
+    socket.on('join', function (cookie) {
+        console.log('New client connected (id=' + socket.id + ').');
+        clients_apple.push(socket);
+        auth_apple.push(cookie);
+
+        // when there are enough player to play the game
+        if (clients_apple.length === 2) {
+            startGame(apple, currentRoundTime_apple, timer_apple, status_apple, clients_apple, drawer_apple, answer_apple);
         }
-        // if the player leaves the game but still enough players left inside this room
-        else if(drawer_apple == socket){
-          // here need to reset the game
-          stopcountDown(timer_apple);
-          startGame(apple, currentRoundTime_apple, timer_apple, status_apple, clients_apple, drawer_apple, answer_apple);
-        }
-        
-        apple.emit('status', status_apple);
+
+        // status should be boardcast to every new player
         apple.emit('count', clients_apple.length);
-    }
-    
-    // if this player is not in the list, then report the error
-    console.log('error: client unknown leaves, socket id: '+socket.id+' at '+ Date.now() );
-  });
-	
-	//send console a disconnected msg when user left the page
-	socket.on('disconnect', function(){
-  });
+        apple.emit('status', status_apple);
+    });
+
+    // when client leave room
+    socket.on('leave', function () {
+        var index = clients_apple.indexOf(socket);
+        if (index != -1) {
+            clients_apple.splice(index, 1);
+            auth_apple.splice(index, 1);
+            console.log('Client gone (id=' + socket.id + ') from room apple.');
+
+            // if there's no enough players left inside this room
+            if (clients_apple.length <= 1) {
+                status_apple = 'waiting';
+                stopcountDown(timer_apple);
+            }
+            // if the player leaves the game but still enough players left inside this room
+            else if (drawer_apple == socket) {
+                // here need to reset the game
+                stopcountDown(timer_apple);
+                startGame(apple, currentRoundTime_apple, timer_apple, status_apple, clients_apple, drawer_apple, answer_apple);
+            }
+
+            apple.emit('status', status_apple);
+            apple.emit('count', clients_apple.length);
+        }
+
+        // if this player is not in the list, then report the error
+        console.log('error: client unknown leaves, socket id: ' + socket.id + ' at ' + Date.now());
+    });
+
+    //send console a disconnected msg when user left the page
+    socket.on('disconnect', function () {
+    });
 });
-
-
 
 
 server.listen(8080);
