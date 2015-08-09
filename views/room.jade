@@ -10,6 +10,13 @@ block append link
 block content
     div(id='infobox')
         div(id='room')=room
+        div(id='cookie')
+            div(id='guest')= user.guest
+            - if(!user.guest){
+                div(id='id')= user.id
+                div(id='username')= user.username
+                div(id='nickname')= user.nickname
+            - }
 
     h2 there's
         span(id='count') 0

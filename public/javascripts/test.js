@@ -1,9 +1,11 @@
 $(function() {
     // Handler for .ready() called.
     //var socket = io('/test');
-    var socket = io();
+    //var socket = io();
     //alert(room);
-    //var socket = io.connect(location.origin+'/room/test');
+    
+    var room = $('div#room').text();
+    var socket = io.connect(location.origin+'/room/'+room);
     var user_count = 0;
     
     //background Audio Control
@@ -58,7 +60,9 @@ $(function() {
 	    return false;
     };
     //Join game
-    socket.emit('join');
+    var guest = $('div#infobox div#guest').text();
+    var cookie = guest == 'true' ? 'guest' : $('div#infobox div#id').text()
+    socket.emit('join', cookie);
     
     //read players number
     socket.on('count', function(count){
@@ -83,7 +87,11 @@ $(function() {
       }else{
           $('span#timer').text('timer left: ' + timer);   
       }
-    });   
+    });
+    
+    socket.on('info', function(msg){
+      $('ul#list').append($('<li>').text('Sys: '+msg));
+    }); 
     
     
     //Emit messages what user enter
@@ -100,7 +108,7 @@ $(function() {
       //$('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
     
-    $( window ).unload(function() {
+    $(window).unload(function() {
       socket.emit('leave');
       return true;
     });
