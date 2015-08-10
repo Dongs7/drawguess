@@ -14,7 +14,8 @@ $(function() {
     
     //alert('songa');
     var guest = $('div#infobox div#guest').text();
-    var cookie = guest == 'true' ? 'guest' : $('div#infobox div#id').text()
+    var g_count=0;
+    var cookie = guest == 'true' ? ('guest') : $('div#infobox div#id').text()
     socket.emit('join', cookie);
     
     //read players number
