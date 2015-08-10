@@ -23,6 +23,7 @@ img{max-width:100%;}
 body{
 	font-family: 'Nunito', sans-serif;
 	position: relative;
+    border-bottom: 1px solid black;
 }
 
 .NavBar{
@@ -79,7 +80,7 @@ body{
 }
 
 .player ul{
-	height:690px;
+	height:655px;
 	overflow: scroll;
 }
 
@@ -121,6 +122,12 @@ body{
 	border: 3px solid gray;
 }
 
+#pensize{
+    width: 100%;
+    text-align: center;
+    height: 50px;
+}
+
 #eraser{
 	padding-top: 0px;
 	padding-left: 0px;
@@ -146,7 +153,7 @@ body{
 	padding-left: 25px;
 }
 
-#jumbo{
+#superlarge{
 	padding-top: 35px;
 	padding-left: 35px;
 }
@@ -176,9 +183,9 @@ body{
 #canvasdiv{
     width: 62.85%;
     position: relative;
-    height: 626px;
+    height: 638px;
     margin-left: 25%;
-    border-bottom:none;
+    border-bottom: 1px solid black;
     padding: 0;
 }
 
