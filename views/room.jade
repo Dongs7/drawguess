@@ -1,50 +1,152 @@
 extends layout
 
 block append link
-  link(rel='stylesheet', href=prefix+'/stylesheets/audio.css')
-  script(src='https://cdn.socket.io/socket.io-1.3.5.js')
-  script(src='http://code.jquery.com/jquery-1.11.1.js')
-  script(src=prefix+'/javascripts/test.js')
+    link(rel='stylesheet', href=prefix + '/stylesheets/audio.css')
+    link(href='/stylesheets/room_style.css', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Frijole', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Nunito:700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=VT323', rel='stylesheet', type='text/css')
+    script(src='https://cdn.socket.io/socket.io-1.3.5.js')
+    script(src='http://code.jquery.com/jquery-1.11.1.js')
+    script(src=prefix + '/javascripts/test.js')
+    script(src=prefix + '/javascripts/script.js')
+    //script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+    //script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    //script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
 
 block content
-  div(id='infobox')
-    div(id='room')=room
-  
-  h2 there's 
-    span(id='count') 0 
-    span in this room
-   
-  audio(class='playsong' id='bgplayer' preload='auto')
-   source(src='/bgmusic/tr1.mp3')
-   
-  a(id='prevControl' href='#')
-    img(src='/images/prev.png' id='prev')
-         
-  a(id='playerControl' href='#')
-    img(src='/images/on1.png' id='play' )
-    img(src='/images/off2.png' id='pause')
-
-  a(id='nextControl' href='#')
-    img(src='/images/next.png' id='next')
+    .NavBar
+      button#home Home
+      button#mute Mute
+     
+    div(id='infobox' style='display: none')
+      div(id='room')=room
+      div(id='cookie')
+        div(id='guest')= user.guest
+        - if(!user.guest){
+          div(id='id')= user.id
+          div(id='username')= user.username
+          div(id='nickname')= user.nickname
+        - }
     
-  h2 game status:
-    span(id='status')
-  
-  h2 the answer is:
-    span(id='answer')
+    .player
+      h1(id='count') 0
+      h1 &nbsp;Player In Room
+      ul
+        //li Vingo
+        //li Raymond
     
-  h2 Timer:
-    span(id='timer')
+    .left
+      .toolBox
+        table
+          tr
+            td
+              button#black(style='background-color:black')
+            td
+              button#white(style='background-color:white')
+            td
+              button#gray(style='background-color:gray')
+          tr
+            td
+              button#red(style='background-color:red')
+            td
+              button#orange(style='background-color:orange')
+            td
+              button#yellow(style='background-color:yellow')
+          tr
+            td
+              button#green(style='background-color:green')
+            td
+              button#blue(style='background-color:blue')
+            td
+              button#purple(style='background-color:purple')
+              
+          tr#pensize(style='border-top:1px solid black')
+            td
+              button#small(style='background-color:black')
+            td
+              button#normal(style='background-color:black')
+            td
+              button#large(style='background-color:black')
+          // <button id="eraser" style="background-image:url(images/eraser.png)"></button>
+      .chatting
+        ul(id='list')
+          li Default setting
+    .timeBar
+      p(style='float:left; margin-left:2%') Time left:
+      p#timer(style='float:left; margin-left:2%') 20s
+      p#answer(style='float:left; margin-left:24%') Banana
+      p#status(style='margin-left:90%; background-color:green; height:25px; width:25px; border-radius:25px; border:2px solid white')
+    .drawingArea
+      canvas(id='canvas')
+    //input#chat(type='text')
     
-  
-  ul(id='list')
-    li default things
-    
-  form(action='')
-    input(class='msg', id='msg')
-    button(type='submit') Enter
-    
-  //button(id='joingame') Join game
-    
-  //script(src=prefix+'/javascripts/test.js')
-  //script(src='/javascripts/test.js')
+    form(class='chatbox', action='')
+      input(class='chat', id='chat', type='text')
+      button(type='submit') Enter
+      
+      
+      
+      
+      
+//     div(id='infobox')
+//         div(id='room')=room
+//         div(id='cookie')
+//             div(id='guest')= user.guest
+//             - if(!user.guest){
+//                 div(id='id')= user.id
+//                 div(id='username')= user.username
+//                 div(id='nickname')= user.nickname
+//             - }
+// 
+//     h2 there's
+//         span(id='count') 0
+//         span in this room
+// 
+//     audio(class='playsong' id='bgplayer' preload='auto')
+//         source(src='/bgmusic/tr1.mp3')
+//         source(src='/bgmusic/tr2.mp3')
+//         source(src='/bgmusic/tr3.mp3')
+// 
+//     a(id='playerControl' href='#')
+//         img(src='/images/prev.png' id='prev')
+//         img(src='/images/on1.png' id='play' )
+//         img(src='/images/off2.png' id='pause')
+//         img(src='/images/next.png' id='next')
+// 
+//     h2 game status:
+//         span(id='status')
+// 
+//     h2 the answer is:
+//         span(id='answer')
+// 
+//     h2 Timer:
+//         span(id='timer')
+// 
+// 
+//     ul(id='list')
+//         li default things
+// 
+//     form(action='')
+//         input(class='msg', id='msg')
+//         button(type='submit') Enter
+//     //button(id='joingame') Join game
+// 
+//     //script(src=prefix+'/javascripts/test.js')
+//     //script(src='/javascripts/test.js')
+//     div(id='container')
+//         div(id='welcome') Welcome #{user}
+//         div(id='cursors')
+//         canvas(id='canvas', width='500', height='500')
+//         ul
+//             button(id='black') Black
+//             button(id='purple') Purple
+//             button(id='green') Green
+//             button(id='yellow') Yellow
+//             button(id='brown') Brown
+//             button(id='eraser') Eraser
+//         button(id='small') Small
+//         button(id='normal') Normal
+//         button(id='large') Large
+//         button(id='superlarge') Superlarge
+//     button(id='redraw') Clear
