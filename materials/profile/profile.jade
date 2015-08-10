@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    title Profile
+    meta(charset='utf-8')
+    link(href='profile_style.css', rel='stylesheet', type='text/css')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    script(type='application/x-javascript').
+      addEventListener("load",function(){setTimeout(hideURLbar,0);},false);function hideURLbar(){window.scrollTo(0,1);}
+    script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Frijole', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Nunito', rel='stylesheet', type='text/css')
+  body
+    .body
+    .NavBar
+      button#home Home
+      button#mute Mute
+    .profile
+      table
+        tr
+          td User Id
+          td#user_id 12345
+        tr
+          td User Name
+          td#username David
+        tr
+          td Nick Name
+          td#nickname Biedalian
+        tr
+          td Email
+          td#email jga45@sfu.ca
+        tr
+          td Point
+          td#point 50000
+        tr
+          td Level
+          td#level 100
