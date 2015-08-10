@@ -76,7 +76,7 @@ block content
           // <button id="eraser" style="background-image:url(images/eraser.png)"></button>
       .chatting
         ul(id='list')
-          li Default setting
+            li *** Welcome to room [ #{room} ] ***
     .timeBar
       p(style='float:left; margin-left:2%') Time left:
       p#timer(style='float:left; margin-left:2%') 20s
@@ -88,7 +88,7 @@ block content
     
     form(class='chatbox', action='')
       input(class='chat', id='chat', type='text')
-      button(type='submit') Enter
+      button(type='submit' hidden) Enter
       
       
       
