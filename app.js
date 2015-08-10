@@ -9,7 +9,7 @@ var socket = require('socket.io');
 var app = require('express')();
 var server = require('http').Server(app);
 var io = socket.listen(server);
-var async = require('async');
+//var async = require('async');
 
 //var serv = require('http').Server(app);
 
@@ -148,10 +148,13 @@ function updateStatus(roomname, value) {
     switch (roomname) {
         case 'apple':
             status_apple = value;
+            break;
         case 'banana':
             status_banana = value;
+            break;
         case 'orange':
             status_orange = value;
+            break;
     }
 };
 
@@ -159,10 +162,13 @@ function updateAnswer(roomname, value) {
     switch (roomname) {
         case 'apple':
             answer_apple = value;
+            break;
         case 'banana':
             answer_banana = value;
+            break;
         case 'orange':
             answer_orange = value;
+            break;
     }
 };
 
@@ -170,40 +176,81 @@ function updateDrawer(roomname, value) {
     switch (roomname) {
         case 'apple':
             drawer_apple = value;
+            break;
         case 'banana':
             drawer_banana = value;
+            break;
         case 'orange':
             drawer_orange = value;
+            break;
     }
 }
 
-// start counting down ingame
-function countDown(room, currentRoundTime, timer, status, clients, drawer, answer) {
-    //stopcountDown(timer);
-    currentRoundTime = roundTime;
-    timer = setInterval(function () {
-        room.emit('timer', currentRoundTime--);
-        if (currentRoundTime == -1) {
-            timeUp(room, timer);
-
-            setTimeout(function () {
-                startGame(room, currentRoundTime, timer, status, clients, drawer, answer);
-            }, 3000)
-        }
-    }, 1000);
+function stopcountDown(room) {
+    switch (room.name.substring(6)) {
+        case 'apple':
+            clearInterval(timer_apple);
+            break;
+        case 'banana':
+            clearInterval(timer_banana);
+            break;
+        case 'orange':
+            clearInterval(timer_orange);
+            break;
+    }
 };
 
-function timeUp(room, timer) {
-    clearInterval(timer);
+// start counting down ingame
+function countDown(room, currentRoundTime, timer, status, clients, drawer, answer) {
+    stopcountDown(room);
+    currentRoundTime = roundTime;
+    
+    switch (room.name.substring(6)) {
+        case 'apple':
+            timer_apple = setInterval(function () {
+                room.emit('timer', currentRoundTime--);
+                if (currentRoundTime == -1) {
+                    timeUp(room, timer);
+
+                    setTimeout(function () {
+                        startGame(room, currentRoundTime, timer, status, clients, drawer, answer);
+                    }, 3000)
+                }
+            }, 1000);
+            break;
+        case 'banana':
+            timer_banana = setInterval(function () {
+                room.emit('timer', currentRoundTime--);
+                if (currentRoundTime == -1) {
+                    timeUp(room, timer);
+
+                    setTimeout(function () {
+                        startGame(room, currentRoundTime, timer, status, clients, drawer, answer);
+                    }, 3000)
+                }
+            }, 1000);
+            break;
+        case 'orange':
+            timer_orange = setInterval(function () {
+                room.emit('timer', currentRoundTime--);
+                if (currentRoundTime == -1) {
+                    timeUp(room, timer);
+
+                    setTimeout(function () {
+                        startGame(room, currentRoundTime, timer, status, clients, drawer, answer);
+                    }, 3000)
+                }
+            }, 1000);
+            break;
+    }
+};
+
+function timeUp(room) {
+    stopcountDown(room);
     room.emit('timer', 'time\'s up!');
     updateStatus(room.name.substring(6), 'waiting');
     room.emit('status', 'waiting');
 };
-
-function stopcountDown(timer) {
-    clearInterval(timer);
-};
-
 
 // control the new instance of game
 function startGame(room, currentRoundTime, timer, status, clients, drawer, answer) {
@@ -313,6 +360,7 @@ apple.on('connection', function (socket) {
 
         // when there are enough player to play the game
         if (clients_apple.length === 2) {
+            //stopcountDown(timer_apple);
             startGame(apple, currentRoundTime_apple, timer_apple, status_apple, clients_apple, drawer_apple, answer_apple);
         }
 
@@ -338,7 +386,7 @@ apple.on('connection', function (socket) {
             // if the player leaves the game but still enough players left inside this room
             else if (drawer_apple == socket) {
                 // here need to reset the game
-                stopcountDown(timer_apple);
+                //stopcountDown(timer_apple);
                 startGame(apple, currentRoundTime_apple, timer_apple, status_apple, clients_apple, drawer_apple, answer_apple);
             }
 

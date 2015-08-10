@@ -1,7 +1,7 @@
 extends layout
 
 block append link
-    link(rel='stylesheet', href=prefix + '/stylesheets/audio.css')
+    link(rel='stylesheet', href=prefix + '/stylesheets/rank.css')
     title Leaderboard
     script(src='http://code.jquery.com/jquery-1.11.1.js')
     script(src=prefix + '/javascripts/test.js')
@@ -34,19 +34,18 @@ block content
           h2.page-header Leaderboard
         .col-lg-4.col-sm-6.text-center
           img.img-circle.img-responsive.img-center(src='/images/2nd.jpg', width='200', height='200', style='PADDING-BOTTOM: 70px;')
-          h3= users[1].nickname
-   
-            small= users[1].point
+          h3= users[1].nickname   
+          small= users[1].point
           p You are truly insane
         .col-lg-4.col-sm-6.text-center
           img.img-circle.img-responsive.img-center(src='/images/1st.jpg', width='200', height='200')
           h3= users[0].nickname
-            small= users[0].point
+          small= users[0].point
           p You are almost top player. Cheer up!!!!
         .col-lg-4.col-sm-6.text-center
           img.img-circle.img-responsive.img-center(src='/images/3rd.png', width='200', height='200', style='PADDING-BOTTOM: 55px;')
           h3= users[2].nickname
-            small= users[2].point
+          small= users[2].point
           p You are not a bad player
       .bootstrap-demo
         style.
@@ -78,3 +77,4 @@ block content
               td 8
               td= users[7].nickname
               td= users[7].point
+            
