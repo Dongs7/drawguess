@@ -1,0 +1,239 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
+ol,ul{list-style:none;margin:0px;padding:0px;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+/* start editing from here */
+a{text-decoration:none;}
+.txt-rt{text-align:right;}/* text align right */
+.txt-lt{text-align:left;}/* text align left */
+.txt-center{text-align:center;}/* text align center */
+.float-rt{float:right;}/* float right */
+.float-lt{float:left;}/* float left */
+.clear{clear:both;}/* clear float */
+.pos-relative{position:relative;}/* Position Relative */
+.pos-absolute{position:absolute;}/* Position Absolute */
+.vertical-base{	vertical-align:baseline;}/* vertical align baseline */
+.vertical-top{	vertical-align:top;}/* vertical align top */
+nav.vertical ul li{	display:block;}/* vertical menu */
+nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
+img{max-width:100%;}
+
+body{
+	font-family: 'Nunito', sans-serif;
+	position: relative;
+	border-bottom: 1px solid black;
+}
+
+.NavBar{
+	width: 100%;
+	background-color: black;
+	position: relative;
+	padding-bottom:60px;
+}
+
+#home{
+	float: left;
+	margin-left: 5%;
+	margin-top: 1%;
+	font-family: 'Nunito', sans-serif;
+	font-size: 20px;
+	color: white;
+	border: none;
+	outline: none;
+	background-color: black;
+	position: relative;
+}
+
+#mute{
+	float: right;
+	margin-right: 5%;
+	margin-top: 1%;
+	font-family: 'Nunito', sans-serif;
+	font-size: 20px;
+	color: white;
+	border: none;
+	outline: none;
+	background-color: black;
+	position: relative;
+}
+
+.player{
+	width:12%;
+	float: right;
+	position: relative;
+	border: 1px solid black;
+	border-bottom: none;
+}
+
+.player h1{
+	text-align:center;
+	color: black;
+	font-size:18px;
+	font-weight:500;
+	font-family: 'Nunito', sans-serif;
+	position:relative;
+	background-color: gray;
+	padding: 0.25em 0em 0.25em 0em;
+	border-bottom: 1px solid black;
+}
+
+.player ul{
+	height:690px;
+	overflow: scroll;
+}
+
+.player li{
+	list-style:none;
+	color: black;
+	font-size:18px;
+	font-weight:500;
+	font-family: 'Nunito', sans-serif;
+	margin-bottom:5px;
+	margin-left: 4%;
+	width:80%;
+	padding: 0.05em 0em 0.05em 0.5em;
+	background: white;
+	text-decoration: none;
+}
+
+.left{
+	width: 25%;
+	position: relative;
+	float: left;
+}
+
+.toolBox{
+	border: 1px solid black;
+}
+
+.toolBox table{
+	width: 100%;
+	text-align: center;
+}
+
+.toolBox button{
+	padding-top: 35px;
+	padding-left: 55px;
+	margin: 5px;
+	margin-bottom: 10px;
+	border-radius: 25px;
+	border: 3px solid gray;
+}
+
+#eraser{
+	padding-top: 0px;
+	padding-left: 0px;
+	margin-bottom: 0px;
+	border: 3px solid gray;
+	border-radius: 5px;
+	width: 35px;
+	height: 35px;
+}
+
+#small{
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+#normal{
+	padding-top: 15px;
+	padding-left: 15px;
+}
+
+#large{
+	padding-top: 25px;
+	padding-left: 25px;
+}
+
+#jumbo{
+	padding-top: 35px;
+	padding-left: 35px;
+}
+
+.chatting{
+	border: 1px solid black;
+	border-top: none;
+	border-bottom: 1px solid black;
+	overflow: scroll;
+	height: 467px;
+	font-family: 'VT323';
+	font-size: 18px;
+}
+
+.timeBar{
+	width: 63%;
+	background-color: gray;
+	position: relative;
+	font-size: 25px;
+	padding-top: 14.5px;
+	padding-bottom:14.5px;
+	margin-left: 25%;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+}
+
+.drawingArea{
+	width: 63%;
+	position: relative;
+	height: 638px;
+	margin-left: 25%;
+	border-bottom:1px solid black;
+	padding: 0;
+}
+
+.drawingArea canvas{
+	width: 100%;
+	height: 100%;
+}
+
+/*.answerInput input{
+	position: relative;
+	float: left;
+	font-size: 20px;
+	height: 30px;
+	padding: 0.25em 0em 0.25em 0.5em;
+	border: none;
+	outline:none;
+}*/
+form{
+	width:87%;
+	height: 30px;
+}
+
+#chat{
+	width:95%;
+	height: 100%;
+	float: left;
+	bottom: 0;
+	border: none;
+	font-size: 10px;
+	padding: 0.25em 0em 0em 0.5em;
+	outline:none;
+	font-family: 'Nunito', sans-serif;
+}
+
+#submit{
+	float: right;
+	height: 100%;
+	outline: none;
+	border: none;
+	background: transparent;
+	font-size: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

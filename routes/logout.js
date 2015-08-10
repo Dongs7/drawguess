@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
   var initialLogin = { guest: true };
   res.cookie('login', initialLogin, { maxAge: 900000, httpOnly: true });
   next();
+  res.redirect('/login');
 });
 
 // route middleware to make sure a user is logged in

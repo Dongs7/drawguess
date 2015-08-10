@@ -1,11 +1,51 @@
 extends layout
 
 block append link
-  script(src='https://cdn.socket.io/socket.io-1.3.5.js')
-  //script(src='/socket.io/socket.io.js')
-  script(src=prefix+'/javascripts/script.js')
+    script(src='https://cdn.socket.io/socket.io-1.3.5.js')
+    script(src='http://code.jquery.com/jquery-1.11.1.js')
+    //script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
+    //script(src=prefix + '/javascripts/play.js')
+    //script(src='/socket.io/socket.io.js')
+    script(src=prefix + '/javascripts/script.js')
 
 block content
-  div(id='welcome') Welcome #{user}
-  div(id='cursors')
-  canvas(id='paper', width='500', height='500')
+    div
+        div(id='welcome') Welcome #{user}
+        div(id='cursors')
+        canvas(id='canvas', width='500', height='500')
+        ul
+            button(id='black') Black
+            button(id='purple') Purple
+            button(id='green') Green
+            button(id='yellow') Yellow
+            button(id='brown') Brown
+            button(id='eraser') Eraser
+        button(id='small') Small
+        button(id='normal') Normal
+        button(id='large') Large
+        button(id='superlarge') Superlarge
+
+    div#chat
+    div#messages
+    form(action='')
+        input#msg(autocomplete='off')
+        button#btnSend Send
+
+
+    script(type='text/javascript').
+        var socket = io();
+        var user_count = 0;
+
+        //Emit messages what user enter
+        $('form').submit(function () {
+            socket.emit('chat message', $('#msg').val());
+            $('#msg').val('');
+            return false;
+        });
+
+        //This code will post user messages on div#message box and automatically scrolling down when new messages are added
+
+        socket.on('chat message', function (msg) {
+            $('#messages').append($('<li>').text(msg));
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        });
