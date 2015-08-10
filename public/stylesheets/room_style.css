@@ -136,26 +136,31 @@ body{
 	border-radius: 5px;
 	width: 35px;
 	height: 35px;
+    outline: none;
 }
 
 #small{
 	padding-top: 5px;
 	padding-left: 5px;
+    outline: none;
 }
 
 #normal{
 	padding-top: 15px;
 	padding-left: 15px;
+    outline: none;
 }
 
 #large{
 	padding-top: 25px;
 	padding-left: 25px;
+    outline: none;
 }
 
 #superlarge{
 	padding-top: 35px;
 	padding-left: 35px;
+    outline: none;
 }
 
 .chatting{
