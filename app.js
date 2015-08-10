@@ -9,7 +9,7 @@ var socket = require('socket.io');
 var app = require('express')();
 var server = require('http').Server(app);
 var io = socket.listen(server);
-var async = require('async');
+//var async = require('async');
 
 //var serv = require('http').Server(app);
 
