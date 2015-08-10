@@ -1,0 +1,40 @@
+doctype html
+html.no-js
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+        title Main Page
+        link(rel='stylesheet', href='stylesheets/reset.css', media='screen')
+        link(rel='stylesheet', href='stylesheets/style_main.css', media='screen')
+        link(rel='stylesheet', href='stylesheets/css3_3d.css', media='screen')
+        script.
+            if (!Modernizr.csstransforms) {
+                $(document).ready(function () {
+                    $(".close").text("Back to top");
+                });
+            }
+    body
+        #container
+            #bg
+            #overlay
+            #wrapper
+                div(style='text-align:center;clear:both')
+                ul#grid.group
+                    li
+                        .details
+                            h2 Play game
+                            a.more(href='#info1') Start new game
+                        a.more(href='/room/apple')
+                            img(src='/images/play.png', width='524', height='600', alt='')
+                    li
+                        .details
+                            h3 Ranking
+                            a.more(href='#info2') Check my score
+                        a(href='/rank')
+                            img(src='/images/Rank_icon.png', width='324', height='200', alt='')
+                    li.end
+                        .details
+                            h3 Friends list
+                            a.more(href='#info3') Find my friends
+                        a(href='/friend')
+                            img(src='/images/Friend_icon.png', width='304', height='250', alt='')
+        

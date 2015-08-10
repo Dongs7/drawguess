@@ -141,7 +141,7 @@ First line is at 0% so we're setting it to be 5x the actual size and rotate it a
 		transform: translate3d(0,0,0);
 	/* Set your background with this */
 
-		background: #348cb2 url("http://www.strangenotions.com/wp-content/uploads/nature_clouds_heaven_019281_.jpeg") bottom left;
+		background: url(../images/mainpage_bg.jpg);
 		background-repeat: repeat-x;
 		height: 100%;
 		left: 0;

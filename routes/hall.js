@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var account = require('../models/accounts.js');
 
 router.get('/', function(req, res, next) {
-    res.render('hall', { user: req.cookies.login.id });
+    res.render('mainpage', { user: req.cookies.login.id });
 });
 
 module.exports = router;

@@ -28,7 +28,7 @@ router.get('/cookie', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index', {user: req.cookies.login.guest ? 'guest' : req.cookies.login.username });
+    res.redirect('/hall');
 });
 
 
