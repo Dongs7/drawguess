@@ -218,7 +218,7 @@ html
       padding: 4px;
       margin-top: 10px;
       }
-      .login input[type=button]{
+      .login input[type=submit]{
       width: 260px;
       height: 55px;
       background: #000000;
@@ -232,10 +232,10 @@ html
       padding: 6px;
       margin-top: 15px;
       }
-      .login input[type=button]:hover{
+      .login input[type=submit]:hover{
       opacity: 0.8;
       }
-      .login input[type=button]:active{
+      .login input[type=submit]:active{
       opacity: 0.6;
       }
       .login input[type=text]:focus{
@@ -285,13 +285,14 @@ html
       .layer
     br
     .login
-      input(type='text', placeholder='Username', name='name')
-      br
-      input(type='email', placeholder='Email Adress', name='email')
-      br
-      input(type='password', placeholder='Password', name='password')
-      br
-      input(type='password', placeholder='Confirm Password', name='repassword')
-      br
-      input(type='button', value='Free Sign up')
+        form(action='/signup/submit', method='post', id='signup_form')
+            input(type='text', placeholder='Username', name='username', id='username')
+            br
+            input(type='email', placeholder='Email Adress', name='email', id='email')
+            br
+            input(type='password', placeholder='Password', name='password', id='password')
+            br
+            input(type='password', placeholder='Confirm Password', name='re_password', id='re_password')
+            br
+            input(type='submit', value='Free Sign up')
 

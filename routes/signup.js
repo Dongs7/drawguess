@@ -32,6 +32,7 @@ router.post('/submit', function (req, res) {
                     user_id: count,
                     "username": new_account.username,
                     "nickname": new_account.username,
+                    "email": new_account.email,
                     "password": new_account.password
                 });
             account.save(function(err,res){
