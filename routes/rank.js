@@ -9,10 +9,10 @@ var account = require('../models/accounts.js');
 
 router.get('/', function (req, res) {
     console.log("Show the best players.")
-    account.find({}).sort('point', -1).limit(10).exec(function (err, users) {
+    account.find({}, {nickname: true, point: true, level: true}).sort([['point', -1]]).limit(8).exec(function (err, users) {
         if (err) throw err;
         console.log(users);
-        res.render('ranking', {
+        res.render('rank', {
             users: users
         });
     });

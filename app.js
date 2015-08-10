@@ -30,7 +30,7 @@ var signup = require('./routes/signup');
 var profile = require('./routes/profile');
 var room = require('./routes/room');
 var hall = require('./routes/hall');
-var ranking = require('./routes/ranking');
+var rank = require('./routes/rank');
 var answerhelper = require('./routes/answerhelper');
 var friendhelper = require('./routes/friendhelper');
 
@@ -75,6 +75,7 @@ app.use('/room', room);
 app.use('/hall', hall);
 app.use('/answer', answerhelper);
 app.use('/friend', friendhelper);
+app.use('/rank', rank);
 
 app.get(function (req, res, next) {
     req.addListener('end', function () {
