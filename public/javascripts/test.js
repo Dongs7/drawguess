@@ -245,24 +245,44 @@ $(function () {
 
     //alert('draw');
 
-    $('#purple').click(function () {
-        curColor = "#cb3594";
+    $('#black').click(function () {
+        curColor = "#000000";
     });
 
-    $('#green').click(function () {
-        curColor = "#659b41";
+    $('#brown').click(function () {
+        curColor = "#A52A2A";
+    });
+
+    $('#white').click(function () {
+        curColor = "#ffffff";
+    });
+
+    $('#gray').click(function () {
+        curColor = "#808080";
+    });
+
+    $('#red').click(function () {
+        curColor = "#ff0000";
+    });
+
+    $('#orange').click(function () {
+        curColor = "#ffa500";
     });
 
     $('#yellow').click(function () {
         curColor = "#ffcf33";
     });
 
-    $('#brown').click(function () {
-        curColor = "#986928";
+    $('#green').click(function () {
+        curColor = "#659b41";
     });
 
-    $('#black').click(function () {
-        curColor = "#000000";
+    $('#blue').click(function () {
+        curColor = "#0000ff";
+    });
+
+    $('#purple').click(function () {
+        curColor = "#cb3594";
     });
 
     $('#eraser').click(function () {
