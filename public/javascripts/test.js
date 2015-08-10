@@ -67,8 +67,9 @@ $(function() {
     //This code will post user messages on div#message box and automatically scrolling down when new messages are added
     
     socket.on('chat', function(msg){
-      $('ul#list').append($('<li>').text(msg));
-      //$('#messages').scrollTop($('#messages')[0].scrollHeight);
+      var user = cookie;
+      $('ul#list').append($('<li>').text(cookie +': '+msg));
+      $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
     
     $(window).unload(function() {
