@@ -17,7 +17,16 @@ block append link
 block content
     .NavBar
       button#home Home
-      button#mute Mute
+      
+      audio(class='playsong' id='bgplayer' preload='auto')
+        source(src='/bgmusic/tr1.mp3')
+        source(src='/bgmusic/tr2.mp3')
+        source(src='/bgmusic/tr3.mp3')
+        
+      button#mute
+        a(id='playerControl' href='#')
+          img(src='/images/on.png' id='play')
+          img(src='/images/pause.png' id='pause')    
      
     div(id='infobox' style='display: none')
       div(id='room')=room
