@@ -14,8 +14,12 @@ $(function() {
     
     //alert('songa');
     var guest = $('div#infobox div#guest').text();
-    var g_count=0;
-    var cookie = guest == 'true' ? ('guest') : $('div#infobox div#id').text()
+    var cookie = new Object();
+    cookie.guest = guest;
+    if(guest == 'false'){
+        cookie.id = $('div#infobox div#id').text();
+        cookie.name = $('div#infobox div#nickname').text();
+    }
     socket.emit('join', cookie);
     
     //read players number
@@ -68,9 +72,11 @@ $(function() {
     //This code will post user messages on div#message box and automatically scrolling down when new messages are added
     
     socket.on('chat', function(msg){
+
       var user = cookie;
       $('ul#list').append($('<li>').text(cookie +': '+msg));
       $('#messages').scrollTop($('#messages')[0].scrollHeight);
+
     });
     
     $(window).unload(function() {
@@ -79,10 +85,7 @@ $(function() {
     });
     
     
-    
-    
-   
-    
+ 
     
     
     // canvas draw
@@ -216,20 +219,6 @@ $(function() {
         }
     });
 
-    // Remove inactive clients after 10 seconds of inactivity
-    setInterval(function () {
-        for (ident in clients) {
-            if ($.now() - clients[ident].updated > 10000) {
-
-                // Last update was more than 10 seconds ago.
-                // This user has probably closed the page
-                cursors[ident].remove();
-                delete clients[ident];
-                delete cursors[ident];
-            }
-        }
-
-    }, 10000);
 
     $('#purple').click(function () {
         curColor = "#cb3594";
