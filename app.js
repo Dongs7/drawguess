@@ -121,9 +121,9 @@ app.use(function (err, req, res, next) {
 var clients_apple = [],
     clients_banana = [],
     clients_orange = [];
-var auth_apple = [],
-    auth_banana = [],
-    auth_orange = [];
+var auth_apple = [], names_apple = [],
+    auth_banana = [], names_banana = [],
+    auth_orange = [], names_orange = [];
 var drawer_apple, drawer_banana, drawer_orange;
 var status_apple = 'waiting',
     status_banana = 'waiting',
@@ -177,6 +177,7 @@ function updateDrawer(roomname, value) {
 
 // start counting down ingame
 function countDown(room, currentRoundTime, timer, status, clients, drawer, answer) {
+    //stopcountDown(timer);
     currentRoundTime = roundTime;
     timer = setInterval(function () {
         room.emit('timer', currentRoundTime--);
@@ -305,7 +306,14 @@ apple.on('connection', function (socket) {
     socket.on('join', function (cookie) {
         console.log('New client connected (id=' + socket.id + ').');
         clients_apple.push(socket);
-        auth_apple.push(cookie);
+        if(cookie.guest == 'true'){
+            auth_apple.push('guest');
+            names_apple.push('guest');
+        }
+        else{
+            auth_apple.push(cookie.id);
+            names_apple.push(cookie.name);
+        }
 
         // when there are enough player to play the game
         if (clients_apple.length === 2) {
@@ -313,7 +321,7 @@ apple.on('connection', function (socket) {
         }
 
         // status should be boardcast to every new player
-        apple.emit('count', auth_apple);
+        apple.emit('count', names_apple);
         apple.emit('status', status_apple);
     });
 
@@ -323,6 +331,7 @@ apple.on('connection', function (socket) {
         if (index != -1) {
             clients_apple.splice(index, 1);
             auth_apple.splice(index, 1);
+            names_apple.splice(index, 1);
             console.log('Client gone (id=' + socket.id + ') from room apple.');
 
             // if there's no enough players left inside this room
@@ -338,7 +347,7 @@ apple.on('connection', function (socket) {
             }
 
             apple.emit('status', status_apple);
-            apple.emit('count', auth_apple);
+            apple.emit('count', names_apple);
         }
 
         // if this player is not in the list, then report the error

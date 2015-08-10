@@ -23,6 +23,7 @@ img{max-width:100%;}
 body{
 	font-family: 'Nunito', sans-serif;
 	position: relative;
+	border-bottom: 1px solid black;
 }
 
 .NavBar{
@@ -63,12 +64,13 @@ body{
 	float: right;
 	position: relative;
 	border: 1px solid black;
+	border-bottom: none;
 }
 
 .player h1{
 	text-align:center;
 	color: black;
-	font-size:20px;
+	font-size:18px;
 	font-weight:500;
 	font-family: 'Nunito', sans-serif;
 	position:relative;
@@ -78,7 +80,7 @@ body{
 }
 
 .player ul{
-	height:680px;
+	height:690px;
 	overflow: scroll;
 }
 
@@ -120,17 +122,32 @@ body{
 	border: 3px solid gray;
 }
 
-#pensize_small{
+#eraser{
+	padding-top: 0px;
+	padding-left: 0px;
+	margin-bottom: 0px;
+	border: 3px solid gray;
+	border-radius: 5px;
+	width: 35px;
+	height: 35px;
+}
+
+#small{
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+#normal{
 	padding-top: 15px;
 	padding-left: 15px;
 }
 
-#pensize_medium{
+#large{
 	padding-top: 25px;
 	padding-left: 25px;
 }
 
-#pensize_large{
+#jumbo{
 	padding-top: 35px;
 	padding-left: 35px;
 }
@@ -138,15 +155,15 @@ body{
 .chatting{
 	border: 1px solid black;
 	border-top: none;
-	border-bottom: none;;
+	border-bottom: 1px solid black;
 	overflow: scroll;
-	height: 447px;
+	height: 467px;
 	font-family: 'VT323';
 	font-size: 18px;
 }
 
 .timeBar{
-	width: 62.85%;
+	width: 63%;
 	background-color: gray;
 	position: relative;
 	font-size: 25px;
@@ -158,17 +175,19 @@ body{
 }
 
 .drawingArea{
-	width: 62.85%;
+	width: 63%;
 	position: relative;
-	height: 626px;
+	height: 638px;
 	margin-left: 25%;
-	border-bottom:none;
+	border-bottom:1px solid black;
 	padding: 0;
 }
 
 .drawingArea canvas{
-	width: 100%;
-	height: 100%;
+	float: left;
+	margin: 0;
+	padding: 0;
+	font-size: 0;
 }
 
 /*.answerInput input{
@@ -180,21 +199,31 @@ body{
 	border: none;
 	outline:none;
 }*/
+form{
+	width:87%;
+	height: 30px;
+}
 
 #chat{
-	width:87.3%;
-	float: right;
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	border-left: none;
+	width:95%;
+	height: 100%;
+	float: left;
+	bottom: 0;
+	border: none;
 	font-size: 10px;
-	height: 29px;
 	padding: 0.25em 0em 0em 0.5em;
 	outline:none;
 	font-family: 'Nunito', sans-serif;
 }
 
-
+#submit{
+	float: right;
+	height: 100%;
+	outline: none;
+	border: none;
+	background: transparent;
+	font-size: 0;
+}
 
 
 
