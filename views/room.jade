@@ -16,85 +16,94 @@ block append link
 
 block content
     .NavBar
-      button#home Home
-      button#mute Mute
-     
-    div(id='infobox' style='display: none')
-      div(id='room')=room
-      div(id='cookie')
-        div(id='guest')= user.guest
-        - if(!user.guest){
-          div(id='id')= user.id
-          div(id='username')= user.username
-          div(id='nickname')= user.nickname
-        - }
-    
-    .player
-      h1(id='count') 0
-      h1 &nbsp;Player In Room
-      ul
-        //li Vingo
-        //li Raymond
-    
-    .left
-      .toolBox
-        table
-          tr
-            td
-              button#black(style='background-color:black')
-            td
-              button#white(style='background-color:white')
-            td
-              button#gray(style='background-color:gray')
-          tr
-            td
-              button#red(style='background-color:red')
-            td
-              button#orange(style='background-color:orange')
-            td
-              button#yellow(style='background-color:yellow')
-          tr
-            td
-              button#green(style='background-color:green')
-            td
-              button#blue(style='background-color:blue')
-            td
-              button#purple(style='background-color:purple')
+        button#home Home
+        audio(class='playsong' id='bgplayer' preload='auto')
+            source(src='/bgmusic/tr1.mp3')
+            source(src='/bgmusic/tr2.mp3')
+            source(src='/bgmusic/tr3.mp3')
 
-        table
-          tr#pensize(style='border-top:1px solid black')
-            td
-              button#small(style='background-color:black')
-            td
-              button#normal(style='background-color:black')
-            td
-              button#large(style='background-color:black')
-            td
-              button#superlarge(style='background-color:black')
-            td
-              button#eraser(style='background:transparent')
-                img(src='/images/eraser.png', width='35px', height='29.77px')
-          // <button id="eraser" style="background-image:url(images/eraser.png)"></button>
-      .chatting
-        ul(id='list')
-            li *** Welcome to room [ #{room} ] ***
+        button#mute
+            a(id='playerControl' href='#')
+                img(src='/images/on.png' id='play')
+                img(src='/images/pause.png' id='pause')
+
+    div(id='infobox' style='display: none')
+        div(id='room')=room
+        div(id='cookie')
+            div(id='guest')= user.guest
+            - if(!user.guest){
+            div(id='id')= user.id
+            div(id='username')= user.username
+            div(id='nickname')= user.nickname
+            - }
+
+    .player
+        h1(id='count') 0
+        h1 &nbsp;Player In Room
+        ul
+            //li Vingo
+            //li Raymond
+
+    .left
+        .toolBox
+            table
+                tr
+                    td
+                        button#black(style='background-color:black')
+                    td
+                        button#white(style='background-color:white')
+                    td
+                        button#gray(style='background-color:gray')
+                tr
+                    td
+                        button#red(style='background-color:red')
+                    td
+                        button#orange(style='background-color:orange')
+                    td
+                        button#yellow(style='background-color:yellow')
+                tr
+                    td
+                        button#green(style='background-color:green')
+                    td
+                        button#blue(style='background-color:blue')
+                    td
+                        button#purple(style='background-color:purple')
+
+            table
+                tr#pensize(style='border-top:1px solid black')
+                    td
+                        button#small(style='background-color:black')
+                    td
+                        button#normal(style='background-color:black')
+                    td
+                        button#large(style='background-color:black')
+                    td
+                        button#superlarge(style='background-color:black')
+                    td
+                        button#eraser(style='background:transparent')
+                            img(src='/images/eraser.png', width='35px', height='29.77px')
+                // <button id="eraser" style="background-image:url(images/eraser.png)"></button>
+        .chatting
+            div#messages
+                ul(id='list')
+                    li *** Welcome to room [ #{room} ] ***
     .timeBar
-      p(style='float:left; margin-left:2%') Time left:
-      p#timer(style='float:left; margin-left:2%') 20s
-      p#answer(style='float:left; margin-left:24%') Banana
-      p#status(style='margin-left:90%; background-color:green; height:25px; width:25px; border-radius:25px; border:2px solid white')
+        p(style='float:left; margin-left:2%') Time left:
+        p#timer(style='float:left; margin-left:2%') 20s
+        p#answer(style='float:left; margin-left:24%') Banana
+        p#status(style='margin-left:90%; background-color:green; height:25px; width:25px; border-radius:25px; border:2px solid white')
     div(id='canvasdiv')
         canvas(id='canvas', width='796', height='637')
     //input#chat(type='text')
-    
+
     form(class='chatbox', action='')
-      input(class='chat', id='chat', type='text')
-      button(type='submit' hidden) Enter
-      
-      
-      
-      
-      
+        input(class='chat', id='chat', type='text')
+        button(type='submit' hidden) Enter
+
+
+
+
+
 //     div(id='infobox')
 //         div(id='room')=room
 //         div(id='cookie')
