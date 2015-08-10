@@ -308,7 +308,7 @@ apple.on('connection', function (socket) {
         }
 
         // status should be boardcast to every new player
-        apple.emit('count', clients_apple.length);
+        apple.emit('count', auth_apple);
         apple.emit('status', status_apple);
     });
 
@@ -333,7 +333,7 @@ apple.on('connection', function (socket) {
             }
 
             apple.emit('status', status_apple);
-            apple.emit('count', clients_apple.length);
+            apple.emit('count', auth_apple);
         }
 
         // if this player is not in the list, then report the error

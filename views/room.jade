@@ -3,13 +3,13 @@ extends layout
 block append link
     link(rel='stylesheet', href=prefix + '/stylesheets/audio.css')
     link(href='/stylesheets/room_style.css', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Frijole', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Nunito:700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=VT323', rel='stylesheet', type='text/css')
     script(src='https://cdn.socket.io/socket.io-1.3.5.js')
     script(src='http://code.jquery.com/jquery-1.11.1.js')
     script(src=prefix + '/javascripts/test.js')
     script(src=prefix + '/javascripts/script.js')
-    link(href='http://fonts.googleapis.com/css?family=Frijole', rel='stylesheet', type='text/css')
-    link(href='http://fonts.googleapis.com/css?family=Nunito:700', rel='stylesheet', type='text/css')
-    link(href='http://fonts.googleapis.com/css?family=VT323', rel='stylesheet', type='text/css')
     //script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
     //script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
     //script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
@@ -30,10 +30,11 @@ block content
         - }
     
     .player
-      h1 Player In Room
+      h1(id='count') 0
+      h1 &nbsp;Player In Room
       ul
-        li Vingo
-        li Raymond
+        //li Vingo
+        //li Raymond
     
     .left
       .toolBox
