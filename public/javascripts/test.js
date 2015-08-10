@@ -14,7 +14,12 @@ $(function() {
     
     //alert('songa');
     var guest = $('div#infobox div#guest').text();
-    var cookie = guest == 'true' ? 'guest' : $('div#infobox div#id').text()
+    var cookie = new Object();
+    cookie.guest = guest;
+    if(guest == 'false'){
+        cookie.id = $('div#infobox div#id').text();
+        cookie.name = $('div#infobox div#nickname').text();
+    }
     socket.emit('join', cookie);
     
     //read players number
@@ -78,6 +83,7 @@ $(function() {
     
     // canvas draw
     //alert('draw');
+
 
     var ctx = document.getElementById('canvas').getContext("2d");
 
@@ -215,19 +221,21 @@ $(function() {
     });
 
     // Remove inactive clients after 10 seconds of inactivity
-    setInterval(function () {
-        for (ident in clients) {
-            if ($.now() - clients[ident].updated > 10000) {
+//     setInterval(function () {
+//         for (ident in clients) {
+//             if ($.now() - clients[ident].updated > 10000) {
+// 
+//                 // Last update was more than 10 seconds ago.
+//                 // This user has probably closed the page
+//                 cursors[ident].remove();
+//                 delete clients[ident];
+//                 delete cursors[ident];
+//             }
+//         }
+// 
+//     }, 10000);
 
-                // Last update was more than 10 seconds ago.
-                // This user has probably closed the page
-                cursors[ident].remove();
-                delete clients[ident];
-                delete cursors[ident];
-            }
-        }
-
-    }, 10000);
+    //alert('draw');
 
     $('#purple').click(function () {
         curColor = "#cb3594";
