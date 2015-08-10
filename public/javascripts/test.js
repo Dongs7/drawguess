@@ -59,7 +59,7 @@ $(function() {
     
     //Emit messages what user enter
     $('form.chatbox').submit(function(){
-      socket.emit('chat', $('#chat').val());
+      socket.emit('chat', $('#chat').val(), $('div#infobox div#nickname').text());
       $('#chat').val('');
       return false;
     });
@@ -76,19 +76,19 @@ $(function() {
       return true;
     });
     
-    
-    
-    
-   
-    
-    
-    
     // canvas draw
     //alert('draw');
 
-
     var ctx = document.getElementById('canvas').getContext("2d");
 
+    fitToContainer(document.getElementById('canvas'));
+
+    function fitToContainer(canvas){
+        canvas.style.width='100%';
+        canvas.style.height='100%';
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
     // Generate an unique ID
     var id = Math.round($.now() * Math.random());
 
@@ -156,8 +156,8 @@ $(function() {
     $('#canvas').mousedown(function (e) {
         if (draw) {
             e.preventDefault();
-            var x = e.pageX - this.offsetLeft;
-            var y = e.pageY - this.offsetTop;
+            var x = e.offsetX;
+            var y = e.offsetY;
             drawing = true;
 
             addClick(x, y);
@@ -208,7 +208,7 @@ $(function() {
             // not received in the socket.on('moving') event above
 
             if (drawing) {
-                addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                addClick(e.offsetX, e.offsetY, true);
                 drawLine(clickX, clickY, clickDrag, clickColor, clickSize);
             }
         }
@@ -296,10 +296,7 @@ $(function() {
             ctx.stroke();
         }
     };
-    
-    
-    
-    
+
     //background Audio Control
     var songs=
     [
