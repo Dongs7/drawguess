@@ -7,28 +7,55 @@ var mongoose = require('mongoose');
 var account = require('../models/accounts.js');
 
 
-router.get('/', function (req, res) {
-    console.log("Time to add friend.")
+// router.get('/', function (req, res) {
+//     console.log("Time to add friend.")
+//     var cookies = req.cookies.login;
+//     addFriend(cookies.id, mongoose.Types.ObjectId("55b918341808fbf636716d2d"));
+//     res.redirect('/');
+// });
+
+router.get('/', function(req, res){
     var cookies = req.cookies.login;
-    addFriend(cookies.id, mongoose.Types.ObjectId("55b918341808fbf636716d2d"));
-    res.redirect('/');
+    if(!cookies || cookies.guest){
+        res.redirect('/login');
+    }
+    else{
+        res.redirect('/friend/' + cookies.id);
+    }
 });
 
-router.get('/getFriendList', function (req, res) {
-    console.log("Gets friends.")
-    var cookies = req.cookies.login;
-    var list = getFriendList(cookies.id)
-    res.redirect('/');
-});
+var friends;
+router.get('/:id', function (req, res, next) {
+    //var cookies = req.cookies.login;
+    var id = req.params.id;
+    account.findOne({ _id: id }).populate("friends.user_id", "-password").exec(function (err, doc) {
+        if (err) throw err;
 
-var getFriendList = function (id) {
-    account.findOne({_id: id}).populate("friends.user_id","-password").exec(function (err, doc) {
-            if (err) throw err;
-            console.log(doc);
-            return doc;
+        var users = [];
+        for (var i = 0; i < doc.friends.length; i++) {
+            var obj = {
+                id: doc.friends[i].id,
+                accept: doc.friends[i].accept,
+                username: doc.friends[i].user_id.username,
+                nickname: doc.friends[i].user_id.nickname
+            };
+            users.push(obj);
         }
-    );
-};
+        friends = users;
+        res.render('friend', { page: 'list', users: users });
+    });
+});
+
+router.post('/search', function (req, res, next) {
+    //var cookies = req.cookies.login;
+    var query = req.body.name;
+    account.find({$or: [{'username': new RegExp(query, 'i')}, {'nickname': new RegExp(query, 'i')}]},
+        {username: true, nickname: true, level: true, point: true},
+        function (err, docs) {
+        if (err) throw err;
+        res.render('friend', { page: 'search', users: docs });
+    });
+});
 
 
 var getNicknameById = function (id) {

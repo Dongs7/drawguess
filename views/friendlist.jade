@@ -6,23 +6,15 @@ block append link
     link(href='http://fonts.googleapis.com/css?family=Frijole', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Nunito', rel='stylesheet', type='text/css')
     script(src='http://code.jquery.com/jquery-1.11.1.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
 
 block content
     .NavBar
       button#home Home
       button#mute mute
     .friend-form
-      - if( page == 'list' ) {
-        h1 My Friends
-      - }
-      - else {
-        h1 Search Results
-      - }
-      form(action='/friend/search', method='post')
-          input(type='text', placeholder='Search More Friends', name='name')
-          button(type='submit')
-      div
-        ul
-          each val, index in users
-            li= val.username
+      h1 My Friends
+      h2
+        a(href='#') Search Friend 
+      form
+        div
+          input(type='text', value='Search Your Friends', onfocus="this.value = '';", onblur="if(this.value == ''){this.value = 'Search Your Friends';}")
