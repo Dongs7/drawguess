@@ -1,6 +1,7 @@
-extends layout
+doctype html
+html.no-js
 
-block append link
+    head
         title Main Page
         link(rel='stylesheet', href='stylesheets/reset.css', media='screen')
         link(rel='stylesheet', href='stylesheets/style_main.css', media='screen')
@@ -11,8 +12,8 @@ block append link
                     $(".close").text("Back to top");
                 });
             }
-            
-block content
+                
+    body
         #container
             #bg
             #overlay
@@ -37,4 +38,4 @@ block content
                             a.more(href='/friend') Find my friends
                         a(href='/friend')
                             img(src='/images/Friend_icon2.png', width='304', height='250', alt='')
-        
+    

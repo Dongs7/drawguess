@@ -83,9 +83,14 @@ $(function () {
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
 
-    $(window).unload(function () {
+    // $(window).unload(function () {
+    //     socket.emit('leave');
+    //     return true;
+    // });
+    
+    $(window).on('beforeunload', function() {
+        alert('zou');
         socket.emit('leave');
-        return true;
     });
 
     // canvas draw
