@@ -63,7 +63,12 @@ $(function () {
 
     //Emit messages what user enter
     $('form.chatbox').submit(function () {
-        socket.emit('chat', $('#chat').val(), $('div#infobox div#nickname').text());
+        if(guest == 'false'){
+            socket.emit('chat', $('#chat').val(), $('div#infobox div#nickname').text());
+        }
+        else{
+            socket.emit('chat', $('#chat').val(), 'guest');
+        }
         $('#chat').val('');
         return false;
     });
@@ -74,12 +79,7 @@ $(function () {
         console.log(guest);
         console.log(msg);
         console.log(cookie.name);
-        if (guest == 'true') {
-            $('ul#list').append($('<li>').text(('guest: ' + msg)));
-        }
-        else {
-            $('ul#list').append($('<li>').text((msg)));
-        }
+        $('ul#list').append($('<li>').text((msg)));
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
 
