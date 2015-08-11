@@ -29,7 +29,7 @@ block content
             - if (page == 'list'){
               li 
                 p #{val.username}
-                a(href='/friend/delete/'+val.id) remove this friend
+                a(href='/friend/delete/'+val.id._id) remove this friend
             - } else {
               li 
                 p #{val.username}

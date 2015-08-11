@@ -34,14 +34,13 @@ router.get('/:id', function (req, res, next) {
         var users = [];
         for (var i = 0; i < doc.friends.length; i++) {
             var obj = {
-                id: doc.friends[i].id,
+                id: doc.friends[i].user_id,
                 accept: doc.friends[i].accept,
                 username: doc.friends[i].user_id.username,
                 nickname: doc.friends[i].user_id.nickname
             };
             users.push(obj);
         }
-        friends = users;
         res.render('friend', { page: 'list', users: users });
     });
 });
