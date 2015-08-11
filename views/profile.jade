@@ -26,6 +26,13 @@ block content
           td Nick Name
           td#nickname #{user.nickname}
         tr
+          td Change Nick Name
+          td
+            form(action='/profile/update/'+user.id, method='post')
+              input#new_nickname(type='text', placeholder='Your new nickname', name='nickname')
+              button.submit(type='submit')
+            
+        tr
           td Email
           td#email #{user.email}
         tr

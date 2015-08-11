@@ -1,7 +1,6 @@
-doctype html
-html.no-js
-    head
-        meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+extends layout
+
+block append link
         title Main Page
         link(rel='stylesheet', href='stylesheets/reset.css', media='screen')
         link(rel='stylesheet', href='stylesheets/style_main.css', media='screen')
@@ -12,7 +11,8 @@ html.no-js
                     $(".close").text("Back to top");
                 });
             }
-    body
+            
+block content
         #container
             #bg
             #overlay

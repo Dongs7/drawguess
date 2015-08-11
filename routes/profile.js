@@ -49,9 +49,8 @@ router.post('/update/:user_id', function (req, res) {
             doc.save(function(e){
                if(e) throw e; 
             });
-            res.render('profile', {
-                user: doc // get the user out of session and pass to template
-            });
+            
+            res.redirect('/profile/view/'+doc.id);
         });
 });
 

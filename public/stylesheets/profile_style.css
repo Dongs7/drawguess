@@ -70,7 +70,7 @@ body{
 }
 
 .profile{
-	width: 35%;
+	width: 40%;
 	position: relative;
 	float: left;
 	margin-left: 15%;
@@ -97,5 +97,16 @@ body{
 }
 
 
+.submit{
+	visibility: hidden;
+}
 
+#new_nickname{
+	border: none;
+	border-bottom: 1px solid white;
+	background-color: black;
+	outline: none;
+	font-size: 20px;
+	color: white;
+}
 
