@@ -277,9 +277,9 @@ function startGame(room, currentRoundTime, timer, status, clients, drawer, answe
         }
         passed_apple.push(randomAnswer);
         answer = doc.answers[randomAnswer];
-        updateAnswer(roomname, answer);
     });
-
+    
+    updateAnswer(roomname, answer);
     drawer.emit('draw', true);
     drawer.emit('answer', answer);
     room.emit('status', status);
@@ -314,19 +314,38 @@ apple.on('connection', function (socket) {
                 }
                 else {
                     // win the game (guess the answer)
-                    apple.emit('chat', name + ": " + msg);
-                    apple.emit('info', 'Congratulations, ' + name + ' guessed the right answer! Get 10 points.');
+                    var indexdrawer = clients_apple.indexOf(drawer_apple);
+                    var indexguesser = clients_apple.indexOf(socket);
+                    
+                    var guessname = names_apple[indexguesser];
+                    var drawername = names_apple[indexdrawer];
+                    var info = 'Congratulations, ' + guessname + ' guessed the right answer!';
+                    if(guessname == 'guest'){
+                        info += ' Please log in first to get points!!!';
+                    }
+                    else{
+                        info += ' Get 10 points.';
+                    }         
+                    apple.emit('info', info);
+                    
+                    info = 'Good jobs, ' + drawername + ' finish a masterpiece!';
+                    if(drawername == 'guest'){
+                        info += ' Please log in first to get points!!!';
+                    }
+                    else{
+                        info += ' Get 10 points.';
+                    } 
+                    apple.emit('info', info);
+                    
                     var instance = new accounts();
-
-                    var index = clients_apple.indexOf(drawer_apple);
-                    var info;
-                    if (index > -1 && auth_apple[index] != 'guest') {
-                        instance.winner(auth_apple[index], 10);
+                    
+                    if (indexdrawer > -1 && auth_apple[indexdrawer] != 'guest') {
+                        instance.winner(auth_apple[indexdrawer], 10);
                     }
 
-                    index = clients_apple.indexOf(socket);
-                    if (index > -1 && auth_apple[index] != 'guest') {
-                        instance.winner(auth_apple[index], 10);
+                    indexguesser = clients_apple.indexOf(socket);
+                    if (indexguesser > -1 && auth_apple[indexguesser] != 'guest') {
+                        instance.winner(auth_apple[indexguesser], 10);
                     }
 
                     return;
