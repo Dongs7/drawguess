@@ -305,7 +305,7 @@ $(function () {
         curSize = 20;
     });
 
-    $('#redraw').click(function () {
+    $('#clear').click(function () {
         clickColor = [];
         clickSize = [];
         clickDrag = [];

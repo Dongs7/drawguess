@@ -233,6 +233,11 @@ form{
 	font-size: 0;
 }
 
+#clear{
+	padding-top: 35px;
+	padding-left: 35px;
+	outline: none;
+}
 
 
 
