@@ -57,6 +57,34 @@ router.post('/search', function (req, res, next) {
     });
 });
 
+router.get('/add/:id', function (req, res, next) {
+    var cookies = req.cookies.login;
+    if(cookies.guest){
+        res.redirect('/login');
+    }
+    
+    var id = cookies.id;
+    var target_id = req.params.id;
+    
+    addFriend(id, target_id);
+    
+    res.redirect('/friend');
+});
+
+router.get('/delete/:id', function (req, res, next) {
+    var cookies = req.cookies.login;
+    if(cookies.guest){
+        res.redirect('/login');
+    }
+    
+    var id = cookies.id;
+    var target_id = req.params.id;
+    
+    removeFriend(id, target_id);
+    
+    res.redirect('/friend');
+});
+
 
 var getNicknameById = function (id) {
     account.findOne({_id: id},
@@ -70,7 +98,6 @@ var getNicknameById = function (id) {
 
 function addFriend(id_A, id_B) {
     var accept = false;
-
     // first check whether B has already added A
     account.findOne({_id: id_B, 'friends.user_id': id_A}, function (err, userB) {
         if (userB) {
@@ -99,8 +126,6 @@ function addFriend(id_A, id_B) {
             });
         });
     });
-
-
 }
 
 function removeFriend(id_A, id_B) {
@@ -126,7 +151,7 @@ function removeFriend(id_A, id_B) {
                     userA.friends[i].remove();
                 }
             }
-            userB.save(function (e) {
+            userA.save(function (e) {
                 if (e) throw e;
             });
         }

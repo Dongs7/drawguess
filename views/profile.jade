@@ -1,17 +1,15 @@
-doctype html
-html
-  head
+extends layout
+
+block append link
     title Profile
-    meta(charset='utf-8')
-    link(href='profile_style.css', rel='stylesheet', type='text/css')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    script(type='application/x-javascript').
-      addEventListener("load",function(){setTimeout(hideURLbar,0);},false);function hideURLbar(){window.scrollTo(0,1);}
-    script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
+    link(href='/stylesheets/profile_style.css', rel='stylesheet', type='text/css')
+    
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Frijole', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Nunito', rel='stylesheet', type='text/css')
-  body
+  
+  
+block content
     .body
     .NavBar
       button#home Home
@@ -20,19 +18,19 @@ html
       table
         tr
           td User Id
-          td#user_id 12345
+          td#user_id #{user.id}
         tr
           td User Name
-          td#username David
+          td#username #{user.username}
         tr
           td Nick Name
-          td#nickname Biedalian
+          td#nickname #{user.nickname}
         tr
           td Email
-          td#email jga45@sfu.ca
+          td#email #{user.email}
         tr
           td Point
-          td#point 50000
+          td#point #{user.point}
         tr
           td Level
-          td#level 100
+          td#level #{user.level}

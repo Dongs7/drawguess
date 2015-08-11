@@ -27,11 +27,11 @@ router.post('/', function(req, res, next){
         throw err;
       }else{
         var cookie = req.cookies.login;
-        cookie.id = doc.id;
+        cookie.id = doc._id;
         cookie.username = doc.username;
         cookie.nickname = doc.nickname;
         cookie.guest = false;
-        res.cookie('login', cookie, { maxAge: 900000, httpOnly: true });
+        res.cookie('login', cookie, { maxAge: 3600000, httpOnly: true });
         
         res.redirect('/hall');
       }

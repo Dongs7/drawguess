@@ -13,26 +13,44 @@ var account = require('../models/accounts.js');
 // we will want this protected so you have to be logged in to visit
 // we will use route middleware to verify this (the isLoggedIn function)
 
+router.get('/', function (req, res) {
+    var login = req.cookies.login;
+    if(!login || login.guest){
+        res.redirect('login');
+    }
+    res.redirect('/profile/view/'+login.id);
+});
+
+
 
 router.get('/view/:user_id', function (req, res) {
-    var body = {
-        username: '',
-        nickname: '',
-        friends: [],
-        point: '',
-        reputation: ''
-    }
     account.findOne({_id: req.params.user_id},
-        //{_id: 1, firrestname: 1, lastname: 1},
+        {_id: true, username: true, nickname: true, level: true, point: true},
         function (err, doc) {
             if (err)
                 throw err;
-            body.username = doc.username;
-            if (doc.nickname)
-                body.nickname = doc.nickname;
-            body.friends = doc.friends;
+            if (!doc.nickname) {
+                doc.nickname = doc.username;
+            }
             res.render('profile', {
-                user: body.username // get the user out of session and pass to template
+                user: doc // get the user out of session and pass to template
+            });
+        });
+});
+
+router.post('/update/:user_id', function (req, res) {
+    account.findOne({_id: req.params.user_id},
+        {_id: true, nickname: true},
+        function (err, doc) {
+            if (err)
+                throw err;
+            doc.nickname = req.body.nickname;
+            
+            doc.save(function(e){
+               if(e) throw e; 
+            });
+            res.render('profile', {
+                user: doc // get the user out of session and pass to template
             });
         });
 });

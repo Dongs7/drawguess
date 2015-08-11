@@ -9,6 +9,7 @@ block append link
     script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
 
 block content
+    .body
     .NavBar
       button#home Home
       button#mute mute
@@ -21,8 +22,16 @@ block content
       - }
       form(action='/friend/search', method='post')
           input(type='text', placeholder='Search More Friends', name='name')
-          button(type='submit')
+          button(type='submit', class='submit')
       div
         ul
           each val, index in users
-            li= val.username
+            - if (page == 'list'){
+              li 
+                p #{val.username}
+                a(href='/friend/delete/'+val.id) remove this friend
+            - } else {
+              li 
+                p #{val.username}
+                a(href='/friend/add/'+val.id) Add friend
+            - }

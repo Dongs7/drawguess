@@ -400,7 +400,7 @@ apple.on('connection', function (socket) {
             // if there's no enough players left inside this room
             if (clients_apple.length <= 1) {
                 status_apple = 'waiting';
-                stopcountDown(timer_apple);
+                stopcountDown(apple);
             }
             // if the player leaves the game but still enough players left inside this room
             else if (drawer_apple == socket) {
