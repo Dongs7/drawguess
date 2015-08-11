@@ -412,9 +412,10 @@ apple.on('connection', function (socket) {
             apple.emit('status', status_apple);
             apple.emit('count', names_apple);
         }
-
         // if this player is not in the list, then report the error
-        console.log('error: client unknown leaves, socket id: ' + socket.id + ' at ' + Date.now());
+        else {
+            console.log('error: client unknown leaves, socket id: ' + socket.id + ' at ' + Date.now());
+        }
     });
 
     //send console a disconnected msg when user left the page
