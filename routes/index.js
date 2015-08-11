@@ -18,17 +18,18 @@ router.use(function(req, res, next){
   next();
 });
 
-router.get('/cookie', function(req, res, next) {
-  var cookie = req.cookies.login;
-  cookie.guest = false;
-  res.cookie('login', cookie, { maxAge: 900000, httpOnly: true });
-  res.send(req.cookies.login);
-  //c.clearCookie(res, 'login');
-  //next();
-});
+// router.get('/cookie', function(req, res, next) {
+//   var cookie = req.cookies.login;
+//   cookie.guest = false;
+//   res.cookie('login', cookie, { maxAge: 900000, httpOnly: true });
+//   res.send(req.cookies.login);
+//   //c.clearCookie(res, 'login');
+//   //next();
+// });
 
 router.get('/', function(req, res, next) {
-    res.redirect('/login');
+  //res.render('index', {user: req.cookies.login.guest ? 'guest' : req.cookies.login.username });
+  res.redirect('/room/apple');
 });
 
 
